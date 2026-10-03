@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Fullset</title>
+  <meta name="theme-color" content="#0B0B0C" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F4F4F5" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../style.css">
+  <!-- Change 149 (MSG-5090): the page behind Fullset's email links. Firebase's "Customize action URL" points here.
+       The link brings mode, oobCode and apiKey; the page calls only Firebase's Identity Toolkit with them.
+       No key is stored here and nothing loads from anywhere else. Source: angel-log docs/ops/auth-emails/action/. -->
+  <style>
+    [data-state] { display: none; }
+    [data-state].on { display: block; }
+    .badge { width: 52px; height: 52px; border-radius: 999px; display: grid; place-items: center; margin: 24px 0 8px; background: var(--accent); color: var(--on-accent); font-size: 28px; font-weight: 800; }
+    .badge.bad { background: #B4381C; color: #FFFFFF; }
+    .btn { display: block; width: 100%; box-sizing: border-box; margin: 20px 0 8px; padding: 16px 20px; border: 0; border-radius: 16px; background: var(--accent); color: var(--on-accent); font: 700 18px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-align: center; text-decoration: none; cursor: pointer; }
+    .btn[disabled] { opacity: 0.6; }
+    label { display: block; margin-top: 16px; color: var(--text); font-weight: 600; }
+    .field { display: flex; gap: 8px; align-items: center; margin-top: 8px; padding: 0 14px; border-radius: 12px; background: var(--surface); border: 2px solid var(--accent-text); }
+    .field input { flex: 1; min-width: 0; padding: 14px 0; border: 0; background: transparent; color: var(--text); font-size: 17px; outline: none; }
+    .field button { border: 0; background: none; color: var(--accent-text); font-weight: 700; font-size: 15px; cursor: pointer; padding: 10px 0; }
+    .err { color: #FF6B4A; }
+    @media (prefers-color-scheme: light) { .err { color: #B4381C; } }
+    .busy-bar { height: 6px; border-radius: 3px; background: var(--raised); overflow: hidden; margin-top: 16px; }
+    .busy-bar span { display: block; width: 40%; height: 100%; background: var(--accent-text); }
+  </style>
+</head>
+<body>
+  <header class="site">
+    <a class="brand" href="../">Fullset</a>
+    <nav aria-label="Site"><a href="../support/">Support</a></nav>
+  </header>
+  <main>
+    <section data-state="busy" class="on" aria-live="polite">
+      <h1>One moment…</h1>
+      <div class="busy-bar"><span></span></div>
+    </section>
+
+    <section data-state="verified" aria-live="polite">
+      <div class="badge" aria-hidden="true">✓</div>
+      <h1>You're verified.</h1>
+      <p>Your email is confirmed and backup is on. Head back to Fullset.</p>
+      <a class="btn" href="fullset://">Open Fullset</a>
+      <p class="muted">On a computer? Open Fullset on your iPhone.</p>
+    </section>
+
+    <section data-state="reset">
+      <h1>Choose a new password</h1>
+      <p>For <strong id="reset-email"></strong></p>
+      <form id="reset-form" novalidate>
+        <label for="pw">New password</label>
+        <div class="field">
+          <input id="pw" name="pw" type="password" autocomplete="new-password" minlength="6" required>
+          <button type="button" id="show" aria-controls="pw">Show</button>
+        </div>
+        <p class="muted" id="pw-hint">At least 6 characters.</p>
+        <p class="err" id="pw-error" role="alert"></p>
+        <button class="btn" type="submit" id="save">Save password</button>
+      </form>
+    </section>
+
+    <section data-state="reset-done" aria-live="polite">
+      <div class="badge" aria-hidden="true">✓</div>
+      <h1>Password saved.</h1>
+      <p>Sign in with your new password in Fullset.</p>
+      <a class="btn" href="fullset://">Open Fullset</a>
+      <p class="muted">On a computer? Open Fullset on your iPhone.</p>
+    </section>
+
+    <section data-state="error" aria-live="polite">
+      <div class="badge bad" aria-hidden="true">!</div>
+      <h1 id="error-title">This link has expired or was already used.</h1>
+      <p id="error-text">Open Fullset and ask for a new one: Check your email → Resend.</p>
+      <a class="btn" href="fullset://">Open Fullset</a>
+      <p class="muted">Still stuck? <a href="mailto:fullsetapp79@gmail.com">fullsetapp79@gmail.com</a></p>
+    </section>
+  </main>
+  <footer>
+    <span>© 2026 Fullset</span>
+    <span class="links"><a href="../privacy/">Privacy Policy</a><a href="../terms/">Terms of Use</a></span>
+  </footer>
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var mode = params.get('mode');
+      var oobCode = params.get('oobCode');
+      var apiKey = params.get('apiKey');
+      // Drop the one-time code from the address bar and history once read.
+      if (history.replaceState) history.replaceState(null, '', location.pathname);
+
+      function show(name) {
+        document.querySelectorAll('[data-state]').forEach(function (el) { el.classList.toggle('on', el.getAttribute('data-state') === name); });
+      }
+      function fail(title, text) {
+        if (title) document.getElementById('error-title').textContent = title;
+        if (text) document.getElementById('error-text').textContent = text;
+        show('error');
+      }
+      function call(endpoint, body) {
+        return fetch('https://identitytoolkit.googleapis.com/v1/accounts:' + endpoint + '?key=' + encodeURIComponent(apiKey), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        }).then(function (r) {
+          return r.json().then(function (j) {
+            if (!r.ok) throw new Error((j && j.error && j.error.message) || 'UNKNOWN');
+            return j;
+          });
+        });
+      }
+      function linkError() { fail(); }
+
+      if (!oobCode || !apiKey) return fail('This link is incomplete.', 'Open the newest email from Fullset and tap its button, or ask for a new one in the app.');
+
+      if (mode === 'verifyEmail') {
+        call('update', { oobCode: oobCode }).then(function () { show('verified'); }, linkError);
+      } else if (mode === 'resetPassword') {
+        call('resetPassword', { oobCode: oobCode }).then(function (j) {
+          document.getElementById('reset-email').textContent = j.email || 'your account';
+          show('reset');
+          document.getElementById('pw').focus();
+        }, linkError);
+        var pw = document.getElementById('pw');
+        document.getElementById('show').addEventListener('click', function () {
+          var hidden = pw.type === 'password';
+          pw.type = hidden ? 'text' : 'password';
+          this.textContent = hidden ? 'Hide' : 'Show';
+        });
+        document.getElementById('reset-form').addEventListener('submit', function (e) {
+          e.preventDefault();
+          var err = document.getElementById('pw-error');
+          err.textContent = '';
+          if (pw.value.length < 6) { err.textContent = 'Use at least 6 characters.'; return; }
+          var save = document.getElementById('save');
+          save.disabled = true;
+          call('resetPassword', { oobCode: oobCode, newPassword: pw.value }).then(function () { show('reset-done'); }, function (x) {
+            save.disabled = false;
+            if (/WEAK_PASSWORD/.test(x.message)) err.textContent = 'That password is too weak. Try a longer one.';
+            else linkError();
+          });
+        });
+      } else {
+        fail("This link isn't one we can open here.", 'Open Fullset, or write to us and we will sort it out.');
+      }
+    })();
+  </script>
+</body>
+</html>
