@@ -21,65 +21,79 @@
   </header>
   <main>
     <h1>Privacy policy</h1>
-    <p class="muted">Last updated: October 3, 2026</p>
+    <p class="muted">Last updated: October 10, 2026</p>
 
     <p>This policy explains what the Fullset app ("Fullset", "we") collects,
       why, and the choices you have. Questions: <a href="mailto:fullsetapp79@gmail.com">fullsetapp79@gmail.com</a>.</p>
 
     <h2>The short version</h2>
     <ul>
-      <li>Fullset works on your iPhone first. Without an account, your logbook stays on your phone.</li>
-      <li>We don't sell your data, show ads, or track you across other apps and websites.</li>
-      <li>Health and fitness data is never used for advertising or data mining.</li>
+      <li>Fullset works on your phone first. Without an account, your logbook stays on your phone.</li>
+      <li>We don't sell your data, show ads, or track you across other apps and websites. Fullset doesn't use the advertising ID.</li>
+      <li>Your workouts, food, body measurements and anything you type never go into crash reports or usage statistics.</li>
     </ul>
+
+    <h2>What stays on your phone</h2>
+    <p>Your logbook (workouts, sets, your plan, body weight, food log, recipes, supplements, water and goals) and your
+      settings are stored on your phone. Fullset works fully without an account and without a signal.
+      Form photos you add stay on your phone.</p>
 
     <h2>What we collect, and why</h2>
     <ul>
-      <li><strong>Account:</strong> your email address, when you create an account with email, Sign in with Apple
-        (which can be a private relay address) or Google. Used to sign you in and back up your data.</li>
-      <li><strong>Your logbook:</strong> workouts, sets, routines, your plan, body weight, food log, recipes and goals.
-        Stored on your phone and, if you have an account, in our cloud backup so you can restore it.</li>
-      <li><strong>Photos and clips you add:</strong> form photos and clips are stored with your account.
-        Meal photos you choose to analyse are sent to our AI provider (below).</li>
-      <li><strong>Purchases:</strong> whether you have Fullset Pro, from Apple through our subscription service.
-        We never see your payment details.</li>
-      <li><strong>Crash reports:</strong> technical details about a crash (device model, iOS version, what the app was doing),
-        to fix bugs. They don't include your logbook.</li>
+      <li><strong>Account (optional):</strong> your email address, when you create an account with email and a password,
+        Sign in with Apple (which can be a private relay address) or Google. We use it to sign you in and to back up your logbook.</li>
+      <li><strong>Cloud backup (only with an account):</strong> your logbook and settings are copied to our backend
+        (Google Firebase, United States) so they come back on a new phone. Sync runs only while you're signed in.</li>
+      <li><strong>Purchases:</strong> whether you have Fullset Pro. Apple handles the payment and our subscription service,
+        RevenueCat, tells the app your status. With an account, RevenueCat links it to your account's random ID, never your
+        email. We never see your payment details.</li>
+      <li><strong>Crash reports:</strong> when the app crashes or an action fails, a report with technical details
+        (device model, iOS version, app version, the screen and action, and the names of the last screens you opened).
+        It's tied to a random install ID, not your account or email, and never contains your logbook, health or food data,
+        or anything you typed. You can turn it off: Settings → Share crash reports.</li>
+      <li><strong>Usage statistics:</strong> which screens you open, how long you stay, which main buttons you tap, and steps
+        like your first workout or first meal, to see what's confusing and what to improve. Collected with Google Analytics
+        for Firebase under a random install ID, never your account or email, with the advertising ID and ad personalization
+        off. They never include health, body or nutrition values, food names or text you type. You can turn it off:
+        Settings → Share usage data.</li>
+      <li><strong>Barcode lookups:</strong> when you scan a barcode Fullset doesn't know yet, it sends only that barcode
+        to Open Food Facts, a public food database, to find the product.</li>
+      <li><strong>Feedback:</strong> Settings → Send feedback opens an email to us in your mail app, with the app version
+        and your device model. Nothing is sent until you send that email.</li>
     </ul>
+    <p>Food search uses a food list built into the app, so your searches don't leave your phone. A nutrition-label photo
+      is read on your phone and then deleted; it's never uploaded.</p>
 
     <h2>Apple Health</h2>
     <p>If you allow it, Fullset reads your body weight from Apple Health and writes your finished workouts to it.
-      Health data is used only to show your progress in Fullset. It is never used for advertising, never sold, and
-      never shared with third parties except as needed to provide the app (for example, our cloud backup).
+      Health data is used only to show your progress in Fullset. It is never used for advertising or data mining, never
+      sold, and never shared with third parties except as needed to provide the app (for example, our cloud backup).
       You can turn access off in the Health app at any time.</p>
-
-    <h2>The AI meal photo (Fullset Pro, coming later)</h2>
-    <p>The AI meal photo isn't in Fullset yet. Before it launches, this section will name the provider that analyses
-      meal photos and how long it keeps them, and the app will ask for your permission before the first photo.
-      When you use it, Fullset sends only the photo you choose, without its location data, to estimate the foods
-      and amounts, and you review every estimate before anything is logged. You can turn it off in Settings.</p>
 
     <h2>Who processes data for us</h2>
     <ul>
-      <li>Google Firebase: accounts, cloud backup and photo storage.</li>
-      <li>RevenueCat: subscription status.</li>
-      <li>Sentry: crash reports.</li>
-      <li>An AI provider for the meal photo, named here before that feature launches, and only when you use it.</li>
-      <li>Apple: purchases, Sign in with Apple, Apple Health.</li>
-      <li>Google: Google sign-in, if you use it.</li>
+      <li><strong>Google Firebase:</strong> accounts, cloud backup and usage statistics (Google Analytics for Firebase).</li>
+      <li><strong>Sentry:</strong> crash and error reports.</li>
+      <li><strong>RevenueCat:</strong> subscription status.</li>
+      <li><strong>Open Food Facts:</strong> barcode lookups (only the barcode).</li>
+      <li><strong>Apple:</strong> purchases, Sign in with Apple, Apple Health.</li>
+      <li><strong>Google:</strong> Google sign-in, if you use it.</li>
     </ul>
     <p>Each processes data only to provide its part of the service.</p>
 
     <h2>How long we keep it</h2>
-    <p>We keep your cloud data while you have an account. When you delete your account, we delete its data
-      from our cloud backup within 30 days, including backups.</p>
+    <p>We keep your cloud backup while you have an account. When you delete your account, we delete its data
+      from our cloud backup within 30 days, including backups. Crash reports and usage statistics are kept for up to
+      90 days and 14 months respectively, then deleted.</p>
 
     <h2>Your choices and rights</h2>
     <ul>
-      <li>Use Fullset without an account; nothing but crash reports leaves your phone.</li>
-      <li>Export your workouts at any time: <strong>Profile → Settings → Export workouts (CSV)</strong>.</li>
-      <li>Delete your account in the app: <strong>Profile → Settings → Account → Delete account</strong>.</li>
-      <li>Turn off Apple Health access, camera or photo access in iOS Settings.</li>
+      <li>Use Fullset without an account. Then only crash reports and usage statistics leave your phone, and you can turn both off in Settings.</li>
+      <li>Export your workouts and weigh-ins at any time: Me → Settings → Export workouts (CSV).</li>
+      <li>Delete your account in the app: Me → Settings → Account → Delete account. This deletes your account and its
+        cloud backup, and clears the logbook on your phone.</li>
+      <li>Delete only your workouts: Me → Settings → Data → Delete all workout data.</li>
+      <li>Turn off Apple Health, camera or photo access in iOS Settings.</li>
       <li>Ask us for a copy of your data, or to correct or delete it: <a href="mailto:fullsetapp79@gmail.com">fullsetapp79@gmail.com</a>.</li>
     </ul>
 
