@@ -3,28 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fullset Privacy Policy</title>
-  <meta name="theme-color" content="#0B0B0C" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#F4F4F5" media="(prefers-color-scheme: light)">
+  <title>Fullset privacy policy</title>
+  <meta name="description" content="What the Fullset app collects, why, and your choices.">
+  <link rel="canonical" href="https://thefullsetapp.com/privacy">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Fullset privacy policy">
+  <meta property="og:description" content="What the Fullset app collects, why, and your choices.">
+  <meta property="og:url" content="https://thefullsetapp.com/privacy">
+  <meta property="og:image" content="https://thefullsetapp.com/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#161412">
   <link rel="icon" href="../favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="stylesheet" href="../style.css">
+  <link rel="preload" href="../fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/bebas-neue-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-  <header class="site">
-    <a class="brand" href="../">Fullset</a>
-    <nav aria-label="Site">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="wrap nav">
+    <a class="wordmark" href="../" aria-label="Fullset, home">Fullset</a>
+    <nav class="nav__links" aria-label="Site">
+      <a href="../#features">Features</a>
+      <a href="../coaches/">Coaches</a>
       <a href="../support/">Support</a>
-      <a href="../privacy/" aria-current="page">Privacy</a>
-      <a href="../terms/">Terms</a>
+      <a class="pill pill--primary pill--nav" href="../#join">Join the beta</a>
     </nav>
+    <a class="pill pill--primary pill--nav nav__cta" href="../#join">Join the beta</a>
   </header>
-  <main>
+  <main id="main">
+    <article class="wrap"><div class="doc">
     <h1>Privacy policy</h1>
     <p class="muted">Last updated: October 10, 2026</p>
 
     <p>This policy explains what the Fullset app ("Fullset", "we") collects,
-      why, and the choices you have. Questions: <a href="mailto:fullsetapp79@gmail.com">fullsetapp79@gmail.com</a>.</p>
+      why, and the choices you have. Questions: <a href="mailto:support@thefullsetapp.com">support@thefullsetapp.com</a>.</p>
 
     <h2>The short version</h2>
     <ul>
@@ -32,6 +45,9 @@
       <li>We don't sell your data, show ads, or track you across other apps and websites. Fullset doesn't use the advertising ID.</li>
       <li>Your workouts, food, body measurements and anything you type never go into crash reports or usage statistics.</li>
     </ul>
+
+    <h2>The waitlist</h2>
+    <p>If you join the waitlist, we keep your email only to send you one message when Fullset is public, then delete it.</p>
 
     <h2>What stays on your phone</h2>
     <p>Your logbook (workouts, sets, your plan, body weight, food log, recipes, supplements, water and goals) and your
@@ -94,7 +110,7 @@
         cloud backup, and clears the logbook on your phone.</li>
       <li>Delete only your workouts: Me → Settings → Data → Delete all workout data.</li>
       <li>Turn off Apple Health, camera or photo access in iOS Settings.</li>
-      <li>Ask us for a copy of your data, or to correct or delete it: <a href="mailto:fullsetapp79@gmail.com">fullsetapp79@gmail.com</a>.</li>
+      <li>Ask us for a copy of your data, or to correct or delete it: <a href="mailto:support@thefullsetapp.com">support@thefullsetapp.com</a>.</li>
     </ul>
 
     <h2>Children</h2>
@@ -102,10 +118,17 @@
 
     <h2>Changes</h2>
     <p>If this policy changes, we update the date above and, for important changes, tell you in the app.</p>
+  </div></article>
   </main>
-  <footer>
-    <span>© 2026 Fullset</span>
-    <span class="links"><a href="../support/">Support</a><a href="../privacy/">Privacy Policy</a><a href="../terms/">Terms of Use</a></span>
+  <footer class="footer">
+    <div class="wrap">
+      <a class="wordmark" href="../">Fullset</a>
+      <a href="../privacy/">Privacy</a>
+      <a href="../terms/">Terms</a>
+      <a href="../support/">Support</a>
+      <!-- Español (/es/…) joins here with the Spanish pages (the Architect's copy), so the English build has no dead link. -->
+      <small>© 2026 Fullset</small>
+    </div>
   </footer>
 </body>
 </html>

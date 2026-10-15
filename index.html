@@ -3,36 +3,111 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fullset</title>
-  <meta name="description" content="Fullset logs your workouts and meals in one app, fast, even with no signal.">
-  <meta name="theme-color" content="#0B0B0C" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#F4F4F5" media="(prefers-color-scheme: light)">
+  <title>Fullset: log every set, eat on plan, bring your coach</title>
+  <meta name="description" content="The gym app that works with no signal, logs your workouts and meals in seconds, and lets a coach plan your week. iPhone and Android.">
+  <link rel="canonical" href="https://thefullsetapp.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Fullset: log every set, eat on plan, bring your coach">
+  <meta property="og:description" content="The gym app that works with no signal, logs your workouts and meals in seconds, and lets a coach plan your week. iPhone and Android.">
+  <meta property="og:url" content="https://thefullsetapp.com/">
+  <meta property="og:image" content="https://thefullsetapp.com/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#161412">
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="style.css">
+  <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/bebas-neue-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site">
-    <a class="brand" href="./">Fullset</a>
-    <nav aria-label="Site">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="wrap nav">
+    <a class="wordmark" href="./" aria-label="Fullset, home">Fullset</a>
+    <nav class="nav__links" aria-label="Site">
+      <a href="./#features">Features</a>
+      <a href="coaches/">Coaches</a>
       <a href="support/">Support</a>
+      <a class="pill pill--primary pill--nav" href="./#join">Join the beta</a>
+    </nav>
+    <a class="pill pill--primary pill--nav nav__cta" href="./#join">Join the beta</a>
+  </header>
+  <main id="main">
+    <section class="wrap hero">
+      <div>
+        <h1>Log every set.<br>Eat on plan.<br>Bring your coach.</h1>
+        <p class="lede" style="margin-top:24px">Fullset is the gym app that works with no signal, logs your workouts and meals in seconds, and lets a coach plan your week and see your progress. iPhone and Android.</p>
+        <div class="actions">
+          <a class="pill pill--primary pill--hero" href="#join">Join the iPhone beta</a>
+          <a class="pill pill--secondary pill--hero" href="#join">Get the Android build</a>
+        </div>
+        <p class="small">Free during the beta · Pro trial included · Spanish and English</p>
+      </div>
+      <div class="shots">
+        <img class="shot" src="img/hero-today.png" width="390" height="844" alt="Fullset on iPhone: Today, with the week strip and the planned workout" decoding="async">
+        <img class="shot" src="img/hero-eat.png" width="390" height="844" alt="Fullset on iPhone: Eat, with the day against the goal and the meals" decoding="async">
+      </div>
+    </section>
+
+    <section class="on-ink section" id="features">
+      <div class="wrap">
+        <h2>Five tabs. Nothing else.</h2>
+        <div class="grid grid--5">
+          <article class="card card--dark"><h3 class="h3">Today</h3><p>What's planned for today, your week at a glance, Start workout in one tap.</p></article>
+          <article class="card card--dark"><h3 class="h3">Train</h3><p>Sets, reps, weight and rest. Cardio and timed work. Your split, your records.</p></article>
+          <article class="card card--dark"><h3 class="h3">Eat</h3><p>Search, barcode or a photo of the label. Cooked or raw. Recipes, water, supplements.</p></article>
+          <article class="card card--dark"><h3 class="h3">Progress</h3><p>Weekly count, records, graphs that are pleasing, not just correct.</p></article>
+          <article class="card card--dark"><h3 class="h3">Coach</h3><p>Invite a client with a code. Plan their week, set their goals, see their log.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section">
+      <div class="grid grid--3">
+        <article><h3 class="h3">Works with no signal</h3><p>Your log lives on your phone first. The basement gym, the plane, the cabin: every set is saved. It syncs when you're back.</p></article>
+        <article><h3 class="h3">Fast enough to use between sets</h3><p>Last workout pre-filled. One tap per set. Rest timer that doesn't get in the way.</p></article>
+        <article><h3 class="h3">Your data is yours</h3><p>No ads, no tracking, no selling. Export anytime. Delete your account in two taps.</p></article>
+      </div>
+    </section>
+
+    <section class="on-lime section">
+      <div class="wrap split">
+        <img class="shot" src="img/coach.png" width="390" height="844" alt="Fullset's Coach tab: a coach's clients and their week" loading="lazy" decoding="async">
+        <div>
+          <p class="eyebrow">For coaches</p>
+          <h2>Plan their week.<br>See every set.</h2>
+          <p class="lede" style="margin-top:20px">Invite a client with a six-character code. Set their goals, assign full sessions and meals up to a month ahead, reuse your plans across clients, and watch what they actually did. They see “From you” on every assignment; you see when they change it.</p>
+          <div class="actions"><a class="pill pill--primary" href="coaches/">See the coach side</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section center" id="join">
+      <h2>Join the beta</h2>
+      <p class="lede" style="margin-top:20px">iPhone: open the TestFlight link on your phone. Android: download the APK. New versions every few days, your data stays.</p>
+      <div class="actions">
+        <a class="pill pill--primary pill--hero" href="#" data-link="TESTFLIGHT_PUBLIC_LINK">Open in TestFlight</a>
+        <a class="pill pill--secondary pill--hero" href="#" data-link="ANDROID_APK_URL">Download for Android</a>
+      </div>
+      <!-- The waitlist posts to change 217's joinWaitlist (waitlist.js, byte for byte the app repo's tested fixture). -->
+      <form class="waitlist" id="waitlist" action="#" method="post" novalidate>
+        <label class="skip" for="waitlist-email">Email</label>
+        <input id="waitlist-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required>
+        <button class="pill pill--secondary" type="submit">Tell me when it's public</button>
+        <p class="waitlist__done small" id="waitlist-done" role="status" aria-live="polite"></p>
+      </form>
+      <p class="small" id="waitlist-note">No spam. One email when the App Store version is out.</p>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <a class="wordmark" href="./">Fullset</a>
       <a href="privacy/">Privacy</a>
       <a href="terms/">Terms</a>
-    </nav>
-  </header>
-  <main>
-    <h1>Fullset</h1>
-    <p>Fullset logs your workouts and meals in one app, fast, even with no signal.</p>
-    <ul class="cards">
-      <li><a href="support/"><strong>Support</strong><span>Questions, your data, and how to reach us.</span></a></li>
-      <li><a href="privacy/"><strong>Privacy Policy</strong><span>What Fullset collects, why, and your choices.</span></a></li>
-      <li><a href="terms/"><strong>Terms of Use</strong><span>Fullset Pro, your account, and the fine print.</span></a></li>
-    </ul>
-    <p class="muted">Contact: <a href="mailto:fullsetapp79@gmail.com">fullsetapp79@gmail.com</a></p>
-  </main>
-  <footer>
-    <span>© 2026 Fullset</span>
-    <span class="links"><a href="support/">Support</a><a href="privacy/">Privacy Policy</a><a href="terms/">Terms of Use</a></span>
+      <a href="support/">Support</a>
+      <!-- Español (/es/…) joins here with the Spanish pages (the Architect's copy), so the English build has no dead link. -->
+      <small>© 2026 Fullset</small>
+    </div>
   </footer>
+  <script src="waitlist.js" defer></script>
 </body>
 </html>

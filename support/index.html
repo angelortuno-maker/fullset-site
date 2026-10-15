@@ -3,64 +3,84 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fullset Support</title>
-  <meta name="theme-color" content="#0B0B0C" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#F4F4F5" media="(prefers-color-scheme: light)">
+  <title>Fullset support</title>
+  <meta name="description" content="How to get help with the Fullset beta and what to send.">
+  <link rel="canonical" href="https://thefullsetapp.com/support">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Fullset support">
+  <meta property="og:description" content="How to get help with the Fullset beta and what to send.">
+  <meta property="og:url" content="https://thefullsetapp.com/support">
+  <meta property="og:image" content="https://thefullsetapp.com/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#161412">
   <link rel="icon" href="../favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="stylesheet" href="../style.css">
+  <link rel="preload" href="../fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/bebas-neue-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-  <header class="site">
-    <a class="brand" href="../">Fullset</a>
-    <nav aria-label="Site">
-      <a href="../support/" aria-current="page">Support</a>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="wrap nav">
+    <a class="wordmark" href="../" aria-label="Fullset, home">Fullset</a>
+    <nav class="nav__links" aria-label="Site">
+      <a href="../#features">Features</a>
+      <a href="../coaches/">Coaches</a>
+      <a href="../support/">Support</a>
+      <a class="pill pill--primary pill--nav" href="../#join">Join the beta</a>
+    </nav>
+    <a class="pill pill--primary pill--nav nav__cta" href="../#join">Join the beta</a>
+  </header>
+  <main id="main">
+    <section class="wrap section" style="padding-top:40px">
+      <h1>Support</h1>
+      <p class="lede" style="margin-top:24px">Beta means things will be rough and fixed fast. Here is how to get help and what to send.</p>
+      <div class="grid grid--2">
+        <article class="card">
+          <h2 class="card__title">Email us</h2>
+          <p><a href="mailto:support@thefullsetapp.com">support@thefullsetapp.com</a> · We answer within a day during the beta.</p>
+          <p><a class="pill pill--primary" href="mailto:support@thefullsetapp.com?subject=Fullset%20beta">Write to support</a></p>
+        </article>
+        <article class="card">
+          <h2 class="card__title">Send feedback from TestFlight</h2>
+          <p>Open TestFlight → Fullset → Send Beta Feedback. It attaches a screenshot and the build number.</p>
+        </article>
+        <article class="card">
+          <h2 class="card__title">Something's wrong</h2>
+          <p>Tell us what you tapped right before, the screen, and your phone model. A screenshot is gold.</p>
+        </article>
+        <article class="card" id="delete-account">
+          <h2 class="card__title">Delete your account</h2>
+          <p>In the app: Me → Settings → Account → Delete account. It's immediate: your account, your cloud backup and this phone's data.</p>
+          <p>Can't sign in? Email <a href="mailto:support@thefullsetapp.com?subject=Delete%20my%20account">support@thefullsetapp.com</a> from your account's email address, with the subject “Delete my account”. We delete it within 7 days and confirm by email.</p>
+          <p class="small">Copies in encrypted backups expire within 14 weeks.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap section" style="padding-top:0">
+      <h2>Common questions</h2>
+      <div class="grid grid--2">
+        <article class="card"><h3 class="card__title">I didn't get the TestFlight email</h3><p>Check spam, then email us; we resend in minutes. Install the free TestFlight app first.</p></article>
+        <article class="card"><h3 class="card__title">Android: “install blocked”</h3><p>Open the link on the phone, tap Install, then allow installs from your browser when Android asks. Updating keeps your data.</p></article>
+        <article class="card"><h3 class="card__title">My workouts disappeared</h3><p>They haven't. Sign in with the same account (Apple, Google or email). Your log syncs back.</p></article>
+        <article class="card"><h3 class="card__title">How do I delete my account?</h3><p>Me → Settings → Account → Delete account. Everything goes, cloud included, immediately. <a href="#delete-account">More on deleting</a>.</p></article>
+        <article class="card"><h3 class="card__title">Where is my data stored?</h3><p>On your phone first; with an account, backed up to Google Firebase (US). We don't sell it or show ads.</p></article>
+        <article class="card"><h3 class="card__title">Can I use it in Spanish?</h3><p>Yes: Me → Settings → Language, or set your phone to Spanish.</p></article>
+      </div>
+      <p class="small" style="margin-top:32px"><a href="../privacy/">Privacy policy</a> · <a href="../terms/">Terms of use</a></p>
+      <!-- Política de privacidad · Términos join this line with /es/. -->
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <a class="wordmark" href="../">Fullset</a>
       <a href="../privacy/">Privacy</a>
       <a href="../terms/">Terms</a>
-    </nav>
-  </header>
-  <main>
-    <h1>Fullset support</h1>
-    <p>Fullset logs your workouts and meals in one app, fast, even with no signal.</p>
-
-    <h2>Contact</h2>
-    <p>Email <a href="mailto:fullsetapp79@gmail.com">fullsetapp79@gmail.com</a>. We answer within two working days.
-      In the app you can also use <strong>Me → Settings → Send feedback</strong>.</p>
-
-    <h2>Common questions</h2>
-
-    <h3>Do I need an account?</h3>
-    <p>No. Fullset works on your iPhone without one, even with no signal. An account (email and password, Sign in with Apple or Google)
-      adds a cloud backup, so your logbook comes back if you change or reset your phone.</p>
-
-    <h3>How do I get my data back on a new iPhone?</h3>
-    <p>Install Fullset, open <strong>Me → Settings → Account</strong> and sign in with the same account you backed up from.</p>
-
-    <h3>How do I import from Strong or Hevy?</h3>
-    <p>Export your workouts as a CSV file from Strong or Hevy. In Fullset, open <strong>History → Import</strong>
-      (or <strong>Me → Settings → Import from Hevy or Strong</strong>), tap <strong>Choose file</strong> and pick
-      the CSV. Check the preview (how many workouts, and whether the weights are in lb or kg), then tap
-      <strong>Import</strong>. Sets with no weight or reps, like cardio or timed holds, aren’t imported yet.</p>
-
-    <h3>How do I cancel Fullset Pro?</h3>
-    <p>Subscriptions are managed by Apple: open the <strong>Settings</strong> app → your name →
-      <strong>Subscriptions</strong> → Fullset Pro → Cancel. You keep Pro until the end of the period you paid for.
-      Deleting the app or your Fullset account doesn't cancel the subscription.</p>
-
-    <h3>How do I restore Pro on another device?</h3>
-    <p>In Fullset, open <strong>Me → Fullset Pro</strong> and tap <strong>Restore purchases</strong> (it is also on every Pro screen), using the same Apple Account you bought with.</p>
-
-    <h3>How do I delete my account?</h3>
-    <p>Open <strong>Me → Settings → Account → Delete account</strong>. This deletes your account and everything stored with it
-      in our cloud backup, and clears the logbook on your phone. It doesn't cancel a Fullset Pro subscription; cancel that in iOS Settings first.</p>
-
-    <h3>Does Fullset read Apple Health?</h3>
-    <p>Only if you allow it: Fullset can read your body weight and save your workouts to Apple Health.
-      You can change this any time in the Health app → Sharing → Apps → Fullset.</p>
-  </main>
-  <footer>
-    <span>© 2026 Fullset</span>
-    <span class="links"><a href="../support/">Support</a><a href="../privacy/">Privacy Policy</a><a href="../terms/">Terms of Use</a></span>
+      <a href="../support/">Support</a>
+      <!-- Español (/es/…) joins here with the Spanish pages (the Architect's copy), so the English build has no dead link. -->
+      <small>© 2026 Fullset</small>
+    </div>
   </footer>
 </body>
 </html>
