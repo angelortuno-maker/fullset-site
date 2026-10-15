@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cuenta de Fullset</title>
+  <meta name="robots" content="noindex">
+  <!-- The link carries a one-time code: no referrer leaves this page, and only our own files and Firebase's auth API load. -->
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src https://identitytoolkit.googleapis.com https://us-central1-angel-log-48bac.cloudfunctions.net; base-uri 'none'; form-action 'none'">
+  <meta name="theme-color" content="#161412">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/bebas-neue-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="wrap nav">
+    <a class="wordmark" href="/" aria-label="Fullset">Fullset</a>
+  </header>
+  <main id="main" class="wrap auth">
+    <section id="working" class="auth__card card" aria-live="polite">
+      <h1 class="auth__title" tabindex="-1">Revisando tu enlace…</h1>
+    </section>
+    <section id="done" class="auth__card card" hidden>
+      <h1 class="auth__title" id="done-title" tabindex="-1"></h1>
+      <p id="done-line"></p>
+      <a class="pill pill--primary" href="fullset://">Abrir Fullset</a>
+    </section>
+    <section id="reset" class="auth__card card" hidden>
+      <h1 class="auth__title" tabindex="-1">Elige una contraseña nueva</h1>
+      <p id="reset-for" class="small"></p>
+      <form id="reset-form" class="auth__form" novalidate>
+        <label class="auth__label" for="pw">Contraseña nueva</label>
+        <input class="auth__input" id="pw" type="password" autocomplete="new-password" minlength="8" required aria-describedby="pw-rule reset-error">
+        <p class="small auth__rule" id="pw-rule">Al menos 8 caracteres.</p>
+        <label class="auth__label" for="pw2">Escríbela otra vez</label>
+        <input class="auth__input" id="pw2" type="password" autocomplete="new-password" minlength="8" required aria-describedby="reset-error">
+        <button class="auth__toggle" id="pw-toggle" type="button" aria-pressed="false">Mostrar</button>
+        <p class="auth__error" id="reset-error" role="alert"></p>
+        <button class="pill pill--primary" id="reset-save" type="submit">Guardar contraseña</button>
+      </form>
+    </section>
+    <section id="failed" class="auth__card card" hidden>
+      <h1 class="auth__title" id="failed-title" tabindex="-1"></h1>
+      <p id="failed-line"></p>
+      <a class="pill pill--primary" href="fullset://">Abrir Fullset</a>
+    </section>
+    <p class="small auth__help">¿Preguntas? <a href="mailto:support@thefullsetapp.com">support@thefullsetapp.com</a></p>
+  </main>
+  <script type="application/json" id="auth-text">{"title": "Cuenta de Fullset", "working": "Revisando tu enlace…", "verifiedTitle": "Tu correo está confirmado", "verifiedLine": "Todo listo. Vuelve a Fullset para seguir.", "changedTitle": "Tu nuevo correo está confirmado", "changedLine": "Desde ahora, inicia sesión en Fullset con él.", "recoveredTitle": "Tu correo volvió", "recoveredLine": "Tu inicio de sesión en Fullset vuelve a ser {email}. Si no pediste el cambio, elige una contraseña nueva en la app (¿Olvidaste tu contraseña?).", "resetTitle": "Elige una contraseña nueva", "resetFor": "Para {email}.", "newPw": "Contraseña nueva", "newPw2": "Escríbela otra vez", "rule": "Al menos 8 caracteres.", "show": "Mostrar", "hide": "Ocultar", "save": "Guardar contraseña", "tooShort": "Usa al menos 8 caracteres.", "mismatch": "Las dos contraseñas no coinciden.", "savedTitle": "Tu contraseña cambió", "savedLine": "Inicia sesión en Fullset con tu contraseña nueva.", "expiredTitle": "Este enlace venció o ya se usó", "expiredLine": "Abre Fullset y pide un enlace nuevo: cada uno funciona una vez y por tiempo limitado.", "incompleteTitle": "Este enlace está incompleto", "incompleteLine": "Abre el correo más reciente de Fullset y toca su botón, o pide un enlace nuevo en la app.", "accountTitle": "Esta cuenta no se puede usar", "accountLine": "Se eliminó o se desactivó. Escribe a support@thefullsetapp.com si es un error.", "takenTitle": "Ese correo ya está en uso", "takenLine": "Otra cuenta de Fullset lo usa. Escribe a support@thefullsetapp.com y te ayudamos.", "offlineTitle": "No pudimos conectar con Fullset", "offlineLine": "Revisa tu conexión y abre el enlace otra vez.", "errorTitle": "Algo salió mal", "errorLine": "Abre el enlace otra vez. Si sigue fallando, pide uno nuevo en la app.", "open": "Abrir Fullset", "help": "¿Preguntas? support@thefullsetapp.com"}</script>
+  <script src="/auth/action.js" defer></script>
+</body>
+</html>
