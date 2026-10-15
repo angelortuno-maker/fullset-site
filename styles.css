@@ -109,7 +109,7 @@ p { margin: 0 0 16px; }
 .waitlist { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 8px; }
 .waitlist input { width: 360px; max-width: 100%; min-height: 48px; padding: 0 20px; border-radius: 24px; border: 1px solid var(--line); background: var(--card); font: 400 16px var(--body); color: var(--ink); }
 .waitlist input::placeholder { color: var(--muted); }
-.waitlist__done { min-height: 24px; margin-top: 12px; }
+.waitlist__done { flex-basis: 100%; min-height: 24px; margin: 4px 0 0; text-align: center; }
 
 /* Footer */
 .footer { background: var(--ink); color: var(--on-dark); padding: 40px 0; }

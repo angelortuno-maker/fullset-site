@@ -88,14 +88,14 @@
         <a class="pill pill--primary pill--hero" href="#" data-link="TESTFLIGHT_PUBLIC_LINK">Open in TestFlight</a>
         <a class="pill pill--secondary pill--hero" href="#" data-link="ANDROID_APK_URL">Download for Android</a>
       </div>
-      <!-- The waitlist shows when change 217's handler is in (Engineer 1's website G6 Important 1): until then it would post nowhere. -->
-      <form class="waitlist" id="waitlist" action="#" method="post" novalidate hidden>
+      <!-- The waitlist posts to change 217's joinWaitlist (waitlist.js, byte for byte the app repo's tested fixture). -->
+      <form class="waitlist" id="waitlist" action="#" method="post" novalidate>
         <label class="skip" for="waitlist-email">Email</label>
         <input id="waitlist-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required>
         <button class="pill pill--secondary" type="submit">Tell me when it's public</button>
+        <p class="waitlist__done small" id="waitlist-done" role="status" aria-live="polite"></p>
       </form>
-      <p class="waitlist__done small" id="waitlist-done" role="status" aria-live="polite" hidden></p>
-      <p class="small" id="waitlist-note" hidden>No spam. One email when the App Store version is out.</p>
+      <p class="small" id="waitlist-note">No spam. One email when the App Store version is out.</p>
     </section>
   </main>
   <footer class="footer">
@@ -108,5 +108,6 @@
       <small>© 2026 Fullset</small>
     </div>
   </footer>
+  <script src="waitlist.js" defer></script>
 </body>
 </html>
