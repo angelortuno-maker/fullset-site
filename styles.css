@@ -73,7 +73,7 @@ p { margin: 0 0 16px; }
 .hero { display: grid; gap: 40px; align-items: center; padding-block: 32px var(--section); }
 @media (min-width: 1024px) { .hero { grid-template-columns: 1.1fr 0.9fr; padding-top: 56px; } }
 .shots { position: relative; display: flex; justify-content: center; align-items: flex-start; min-height: 420px; }
-.shot { width: 220px; border-radius: 28px; box-shadow: 0 24px 60px rgba(22, 20, 18, 0.18); background: var(--card); }
+.shot { width: min(220px, 44vw); max-width: 100%; height: auto; border-radius: 28px; box-shadow: 0 24px 60px rgba(22, 20, 18, 0.18); background: var(--card); }
 @media (min-width: 1024px) { .shot { width: 260px; } }
 .shot + .shot { margin-left: -60px; margin-top: 48px; transform: rotate(-6deg); }
 
