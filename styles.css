@@ -34,7 +34,7 @@ a { color: inherit; }
 .skip { position: absolute; left: -9999px; top: 8px; z-index: 10; background: var(--ink); color: var(--on-dark); padding: 10px 16px; border-radius: 20px; }
 .skip:focus { left: 8px; }
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
-.section { padding: var(--section) 0; }
+.section { padding-block: var(--section); }
 
 /* Type */
 h1, h2, .h3, .wordmark { font-family: var(--display); font-weight: 400; text-transform: uppercase; letter-spacing: 0.01em; margin: 0; }
@@ -70,7 +70,7 @@ p { margin: 0 0 16px; }
 @media (min-width: 1024px) { .nav__links { display: flex; } .nav__cta { display: none; } }
 
 /* Hero */
-.hero { display: grid; gap: 40px; align-items: center; padding: 32px 0 var(--section); }
+.hero { display: grid; gap: 40px; align-items: center; padding-block: 32px var(--section); }
 @media (min-width: 1024px) { .hero { grid-template-columns: 1.1fr 0.9fr; padding-top: 56px; } }
 .shots { position: relative; display: flex; justify-content: center; align-items: flex-start; min-height: 420px; }
 .shot { width: 220px; border-radius: 28px; box-shadow: 0 24px 60px rgba(22, 20, 18, 0.18); background: var(--card); }
@@ -104,6 +104,8 @@ p { margin: 0 0 16px; }
 .center .actions { justify-content: center; }
 
 /* Waitlist */
+/* The hidden attribute wins over any display rule (Engineer 1's G6 Important 1: .waitlist's flex showed the hidden form). */
+[hidden] { display: none !important; }
 .waitlist { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 8px; }
 .waitlist input { width: 360px; max-width: 100%; min-height: 48px; padding: 0 20px; border-radius: 24px; border: 1px solid var(--line); background: var(--card); font: 400 16px var(--body); color: var(--ink); }
 .waitlist input::placeholder { color: var(--muted); }
@@ -118,7 +120,7 @@ p { margin: 0 0 16px; }
 .footer small { width: 100%; color: var(--muted-on-dark); font-size: 14px; }
 
 /* Long text (privacy, terms) */
-.doc { max-width: 720px; padding: 40px 0 var(--section); font-size: 17px; line-height: 1.6; }
+.doc { max-width: 720px; padding-block: 40px var(--section); font-size: 17px; line-height: 1.6; }
 .doc h1 { margin-bottom: 16px; }
 .doc h2 { font-size: 32px; margin: 40px 0 12px; color: var(--ink); }
 .doc ul { padding-left: 22px; }
