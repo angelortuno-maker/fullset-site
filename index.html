@@ -6,6 +6,8 @@
   <title>Fullset: log every set, eat on plan, bring your coach</title>
   <meta name="description" content="The gym app that works with no signal, logs your workouts and meals in seconds, and lets a coach plan your week. iPhone and Android.">
   <link rel="canonical" href="https://thefullsetapp.com/">
+  <link rel="alternate" hreflang="en" href="https://thefullsetapp.com/">
+  <link rel="alternate" hreflang="es" href="https://thefullsetapp.com/es">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Fullset: log every set, eat on plan, bring your coach">
   <meta property="og:description" content="The gym app that works with no signal, logs your workouts and meals in seconds, and lets a coach plan your week. iPhone and Android.">
@@ -38,7 +40,8 @@
         <p class="lede" style="margin-top:24px">Fullset is the gym app that works with no signal, logs your workouts and meals in seconds, and lets a coach plan your week and see your progress. iPhone and Android.</p>
         <div class="actions">
           <a class="pill pill--primary pill--hero" href="#join">Join the iPhone beta</a>
-          <a class="pill pill--secondary pill--hero" href="#join">Get the Android build</a>
+          <!-- Hidden until the Google Play opt-in link exists (the Architect, issue 597, 20:00): Android goes out through the Play closed test, never a public APK. -->
+          <a class="pill pill--secondary pill--hero" href="#join" hidden>Get the Android build</a>
         </div>
         <p class="small">Free during the beta · Pro trial included · Spanish and English</p>
       </div>
@@ -65,7 +68,7 @@
       <div class="grid grid--3">
         <article><h3 class="h3">Works with no signal</h3><p>Your log lives on your phone first. The basement gym, the plane, the cabin: every set is saved. It syncs when you're back.</p></article>
         <article><h3 class="h3">Fast enough to use between sets</h3><p>Last workout pre-filled. One tap per set. Rest timer that doesn't get in the way.</p></article>
-        <article><h3 class="h3">Your data is yours</h3><p>No ads, no tracking, no selling. Export anytime. Delete your account in two taps.</p></article>
+        <article><h3 class="h3">Your data is yours</h3><p>No ads, no tracking, no selling. Export anytime. Delete your account from the app anytime.</p></article>
       </div>
     </section>
 
@@ -75,7 +78,7 @@
         <div>
           <p class="eyebrow">For coaches</p>
           <h2>Plan their week.<br>See every set.</h2>
-          <p class="lede" style="margin-top:20px">Invite a client with a six-character code. Set their goals, assign full sessions and meals up to a month ahead, reuse your plans across clients, and watch what they actually did. They see “From you” on every assignment; you see when they change it.</p>
+          <p class="lede" style="margin-top:20px">Invite a client with a six-character code. Set their goals, assign full sessions and meals up to a month ahead, reuse your plans across clients, and watch what they actually did. They see a small Coach label on each; you see when they change it.</p>
           <div class="actions"><a class="pill pill--primary" href="coaches/">See the coach side</a></div>
         </div>
       </div>
@@ -83,8 +86,9 @@
 
     <section class="wrap section center" id="join">
       <h2>Join the beta</h2>
-      <p class="lede" style="margin-top:20px">iPhone: open the TestFlight link on your phone. Android: download the APK. New versions every few days, your data stays.</p>
-      <div class="actions">
+      <!-- Hidden until the public TestFlight link exists (the Architect, #597 15:12): #join shows only the waitlist. Never a direct APK link on the public site. -->
+      <p class="lede" style="margin-top:20px" hidden>iPhone: open the TestFlight link on your phone. Android: download the APK. New versions every few days, your data stays.</p>
+      <div class="actions" hidden>
         <a class="pill pill--primary pill--hero" href="#" data-link="TESTFLIGHT_PUBLIC_LINK">Open in TestFlight</a>
         <a class="pill pill--secondary pill--hero" href="#" data-link="ANDROID_APK_URL">Download for Android</a>
       </div>
@@ -104,7 +108,7 @@
       <a href="privacy/">Privacy</a>
       <a href="terms/">Terms</a>
       <a href="support/">Support</a>
-      <!-- Español (/es/…) joins here with the Spanish pages (the Architect's copy), so the English build has no dead link. -->
+      <a href="/es" hreflang="es" lang="es">Español</a>
       <small>© 2026 Fullset</small>
     </div>
   </footer>
