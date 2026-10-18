@@ -1,6 +1,6 @@
 # Plan 285: the website shows the real app, store-style download buttons, no "beta" wording
 
-From: the Architect's brief (#597 Oct 18 10:05 CT; `brief.md` here mirrors it), numbered by the Lead (10:04) · Status: draft (G3 wanted: the Architect or the Lead) · Branch: `change/285-website-real-screens` in fullset-site (Engineer 3), cut at main 967b04b
+From: the Architect's brief (#597 Oct 18 10:05 CT; `brief.md` here mirrors it), numbered by the Lead (10:04) · Status: draft (G3 wanted: the Architect or the Lead) · Branch: `change/285-website-real-screens` in fullset-site (Engineer 3), cut at main 967b04b, with fullset-site#5's branch `site-fixes-1` merged in (the Lead, 11:01). The PR's base is `site-fixes-1` until #5 merges, then `main`. The Architect decides whether #5 lands first
 Architecture-impacting: no. Static pages, one new script, images. The app repo and the 2.0.0 build aren't touched.
 
 ## Files in scope
@@ -8,6 +8,7 @@ Architecture-impacting: no. Static pages, one new script, images. The app repo a
 - `store-links.js` (new): the one config, `APPLE_URL` (the current TestFlight link until the public link) and `ANDROID_URL` (the Play internal opt-in). It sets every `a[data-store]` button's `href`. With no JavaScript, the buttons go to `#get`.
 - `styles.css`: the store button (logo plus two lines, `--ink` fill, the existing pill radius) and the third frame's slot.
 - `coaches/index.html`, `support/index.html`, `privacy/index.html`, `terms/index.html`: the header button says "Get the app", and (C)'s wording goes from each page's own copy.
+- `es/index.html`, `es/coaches/index.html`, `es/support/index.html`, `es/privacy/index.html`, `es/terms/index.html` (from #5): the ES mirror of every change above. The Spanish home page uses the ES frames, "Descargar para iPhone" and "Descargar para Android", and "Consigue la app" in the header. The new Spanish strings are listed in the PR for the Architect to correct.
 - `img/today.png`, `img/eat.png`, `img/progress.png` (new, EN), and `img/es/today.png`, `img/es/eat.png`, `img/es/progress.png` (new, ES): 390×844 @2x renders, 250 KB at most each. The placeholders `img/hero-today.png`, `img/hero-eat.png` and `img/coach.png` are deleted, with Angel's OK (CLAUDE.md: ask before deleting).
 - `img/apple.svg`, `img/android.svg` (new): plain logos for the buttons. The official App Store and Google Play badges wait for the store release (the brand rules).
 - `tools/screens/seed.spec.ts`, `tools/screens/playwright.config.ts`, `tools/screens/render.sh` (new): the demo seed and the render. They run the app's QA web export (`npm run qa:web`) from 3daf90e on the emulators, through the app's L2 harness, so the frames can be made again from any later build.
@@ -16,8 +17,8 @@ Architecture-impacting: no. Static pages, one new script, images. The app repo a
 Always allowed, not listed: `docs/changes/285-website-real-screens/**`.
 
 ## Not in this PR
-- The `/es/` pages. The site has no Spanish page yet. MSG-5645 asks the Architect, and the default is that the ES frames and the ES copy table wait in this PR for the `/es/` pages.
-- `firebase.json` and `waitlist.js`: unchanged (they're the app repo's tested fixtures). The email block keeps the waitlist form, with new wording only.
+- `action/` and `auth/action/`: untouched (#7's forwarder owns that path; #4 is the old action page).
+- `firebase.json` and `waitlist.js`: unchanged (they're the app repo's tested fixtures). The email block keeps the waitlist form, with new wording only. Its promise stays the privacy page's (#5): one email when Fullset opens to everyone (MSG-5646 item 4).
 
 ## Order of work
 1. G3 on this plan.
