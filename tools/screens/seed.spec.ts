@@ -2,13 +2,14 @@
 // signed in on the Firebase emulators (a demo-* project: nothing real is reachable). The seed goes in through the
 // app's own screens, with the app's L2 harness (qa/web/harness.ts): a Push / Pull / Legs split, a nutrition goal,
 // two weeks of workouts with rising weights, and Thursday's breakfast and lunch. Then Today, Eat and Progress at
-// 390×844 @2x, dark, in English, then in Spanish (Me → Settings → Language).
+// 390×844 @2x, dark, in English, then in Spanish (Me → Settings → Language). The second test is the coach's side (R3,
+// the Architect, #597 Oct 19 17:28 and 17:40): a coach's client page for Alex, with goals and an assigned week.
 import fs from 'node:fs';
 import path from 'node:path';
 
 // The app checkout's harness (render.sh sets APP_DIR).
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const { expect, openTab, test } = require(path.join(process.env.APP_DIR!, 'qa/web/harness'));
+const { addDays, expect, journeyDay, openTab, test } = require(path.join(process.env.APP_DIR!, 'qa/web/harness'));
 
 const OUT = process.env.SHOTS_DIR!;
 const DAY = '2026-10-15'; // a Thursday
@@ -142,6 +143,65 @@ test('285 demo seed and frames', async ({ qa }: any) => {
     }
   } catch (e) {
     await snap(p, 'FAILED');
+    throw e;
+  }
+  await qa.cleanup();
+});
+
+// The coach's side: a coach linked to Alex sets the goals and assigns Tuesday to Saturday of this week, then the
+// client page (Coach → Alex) at 390×844 @2x, dark, in English and in Spanish. The coach's invite is checked against
+// the real date (MSG-5537), so the seed's day is the journeys' day, and the week is the one it falls in.
+const WEEK: [number, string][] = [[1, 'Push'], [2, 'Pull'], [3, 'Legs'], [4, 'Rest'], [5, 'Full body']];
+
+test('285 coach frame', async ({ qa }: any) => {
+  fs.mkdirSync(OUT, { recursive: true });
+  const day: string = journeyDay();
+  // The week's Monday (the journeys' day is never a Sunday).
+  const monday = addDays(day, 1 - new Date(`${day}T12:00:00Z`).getUTCDay());
+  await qa.atCT(`${day} 09:00`);
+  const coach = await qa.person('Coach Maya');
+  const me = await qa.person('Alex');
+  const c = coach.page;
+  try {
+    await home(c);
+    await home(me.page);
+    await qa.link(coach, me);
+    await c.getByRole('button', { name: /^Alex, Client since / }).click();
+    await c.getByTestId('client-goals').getByRole('button', { name: 'Edit goals', exact: true }).click();
+    await c.getByRole('button', { name: 'Push / Pull / Legs', exact: true }).click();
+    await c.getByLabel('Sessions per week', { exact: true }).fill('5');
+    await c.getByLabel('Calories', { exact: true }).fill('2800');
+    await c.getByLabel('Protein (g)', { exact: true }).fill('180');
+    await c.getByLabel('Carbs (g)', { exact: true }).fill('330');
+    await c.getByLabel('Fat (g)', { exact: true }).fill('85');
+    await c.getByLabel(/^Water \(/).fill('100');
+    await c.getByRole('button', { name: 'Save goals', exact: true }).click();
+    await expect(c.getByTestId('goal-sessions')).toHaveAttribute('aria-label', 'Sessions, 5 a week');
+
+    for (const [offset, type] of WEEK) {
+      const date = addDays(monday, offset);
+      await c.getByTestId(`week-${date}`).click();
+      await c.getByRole('button', { name: type, exact: true }).click();
+      await c.getByRole('button', { name: 'Assign to Alex', exact: true }).click();
+      await expect(c.getByTestId(`week-${date}`)).toHaveAttribute('aria-label', new RegExp(`, ${type}, assigned`));
+    }
+
+    for (const lang of ['en', 'es'] as const) {
+      if (lang === 'es') {
+        await home(c);
+        await openTab(c, 'me');
+        await c.getByRole('button', { name: 'Settings', exact: true }).click();
+        await c.getByRole('radio', { name: 'Español', exact: true }).click();
+      }
+      await home(c);
+      await openTab(c, 'coach');
+      await c.getByRole('button', { name: /^Alex, / }).click();
+      await expect(c.getByTestId('client-week')).toBeVisible();
+      await c.waitForTimeout(1500);
+      await c.screenshot({ path: `${OUT}/frame-${lang}-coach.png` });
+    }
+  } catch (e) {
+    await snap(c, 'FAILED-coach');
     throw e;
   }
   await qa.cleanup();

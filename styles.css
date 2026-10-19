@@ -75,7 +75,20 @@ p { margin: 0 0 16px; }
 .nav__links { display: none; align-items: center; gap: 28px; }
 .nav__links a:not(.pill) { font: 500 15px/1 var(--body); text-decoration: none; }
 .nav__links a:not(.pill):hover { text-decoration: underline; }
-@media (min-width: 1024px) { .nav__links { display: flex; } .nav__cta { display: none; } }
+.nav__end { display: flex; align-items: center; gap: 8px; }
+@media (min-width: 1024px) { .nav__links { display: flex; } .nav__end { display: none; } }
+/* Change 285 R2: the language switch, named in the language it switches to; "ES" / "EN" under 400 px. No flags. */
+.lang__short { display: none; }
+/* Under 400 px the header holds the wordmark, the switch and "Consigue la app" on one row, each pill on one line. */
+.nav .pill--nav { white-space: nowrap; }
+@media (max-width: 399px) {
+  .lang__long { display: none; }
+  .lang__short { display: inline; }
+  .nav { gap: 10px; }
+  .nav .wordmark { font-size: 22px; letter-spacing: 0.12em; }
+  .nav__end { gap: 6px; }
+  .nav .pill--nav { padding: 0 12px; font-size: 14px; }
+}
 
 /* Hero */
 .hero { display: grid; gap: 40px; align-items: center; padding-block: 32px var(--section); }
@@ -84,6 +97,14 @@ p { margin: 0 0 16px; }
 .shot { width: min(220px, 44vw); max-width: 100%; height: auto; border-radius: 28px; box-shadow: 0 24px 60px rgba(22, 20, 18, 0.18); background: var(--card); }
 @media (min-width: 1024px) { .shot { width: 260px; } }
 .shot + .shot { margin-left: -60px; margin-top: 48px; transform: rotate(-6deg); }
+/* Change 285 R3: the hero's third frame (Coach), from 1024 px up; on phones the hero keeps two. */
+.shot--wide { display: none; }
+@media (min-width: 1024px) {
+  /* Three frames, two 56 px overlaps, and room for the turned third one inside the column. */
+  .shots .shot { width: min(210px, calc((100% + 112px) / 3 - 16px)); }
+  .shots .shot + .shot { margin-left: -56px; }
+  .shots .shot--wide { display: block; margin-top: 0; transform: rotate(6deg); }
+}
 
 /* Bands and cards */
 .on-ink { background: var(--ink); color: var(--on-dark); }
