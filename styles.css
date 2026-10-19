@@ -60,6 +60,14 @@ p { margin: 0 0 16px; }
 .pill--hero { min-height: 56px; padding: 0 28px; border-radius: 28px; font-size: 17px; }
 .pill--nav { min-height: 40px; padding: 0 20px; border-radius: 20px; font-size: 15px; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 16px; }
+/* Change 285: the store buttons. Plain logos until the store release (the brand rules: official badges then). */
+.store { display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 24px 8px 20px; border-radius: 28px; background: var(--ink); color: var(--volt); text-decoration: none; text-align: left; transition: opacity .15s; }
+.store:hover { opacity: .85; }
+.store__logo { flex: none; width: 24px; height: 24px; background: currentColor; -webkit-mask: var(--logo) center / contain no-repeat; mask: var(--logo) center / contain no-repeat; }
+.store__logo--apple { --logo: url(img/apple.svg); }
+.store__logo--android { --logo: url(img/android.svg); }
+.store__text { display: flex; flex-direction: column; font: 600 17px/1.1 var(--body); color: var(--on-dark); }
+.store__text small { font: 500 12px/1.2 var(--body); color: var(--muted-on-dark); }
 
 /* Nav */
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; }
@@ -126,3 +134,5 @@ p { margin: 0 0 16px; }
 .doc ul { padding-left: 22px; }
 .doc li { margin-bottom: 8px; }
 .doc .muted { color: var(--muted); }
+/* A long link (thefullsetapp.com/es/support#delete-account) wraps rather than scrolling a 320 px screen sideways. */
+.doc a { overflow-wrap: anywhere; }

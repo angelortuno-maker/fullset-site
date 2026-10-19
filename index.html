@@ -29,25 +29,25 @@
       <a href="./#features">Features</a>
       <a href="coaches/">Coaches</a>
       <a href="support/">Support</a>
-      <a class="pill pill--primary pill--nav" href="./#join">Join the beta</a>
+      <a class="pill pill--primary pill--nav" href="./#get">Get the app</a>
     </nav>
-    <a class="pill pill--primary pill--nav nav__cta" href="./#join">Join the beta</a>
+    <a class="pill pill--primary pill--nav nav__cta" href="./#get">Get the app</a>
   </header>
   <main id="main">
     <section class="wrap hero">
       <div>
         <h1>Log every set.<br>Eat on plan.<br>Bring your coach.</h1>
         <p class="lede" style="margin-top:24px">Fullset is the gym app that works with no signal, logs your workouts and meals in seconds, and lets a coach plan your week and see your progress. iPhone and Android.</p>
+        <!-- The store links come from store-links.js (change 285); with none, a button stays on #get. -->
         <div class="actions">
-          <a class="pill pill--primary pill--hero" href="#join">Join the iPhone beta</a>
-          <!-- Hidden until the Google Play opt-in link exists (the Architect, issue 597, 20:00): Android goes out through the Play closed test, never a public APK. -->
-          <a class="pill pill--secondary pill--hero" href="#join" hidden>Get the Android build</a>
+          <a class="store" data-store="apple" href="#get"><span class="store__logo store__logo--apple" aria-hidden="true"></span><span class="store__text"><small>Download for</small>iPhone</span></a>
+          <a class="store" data-store="android" href="#get"><span class="store__logo store__logo--android" aria-hidden="true"></span><span class="store__text"><small>Download for</small>Android</span></a>
         </div>
-        <p class="small">Free during the beta · Pro trial included · Spanish and English</p>
+        <p class="small">Free to start · Pro trial included · Spanish and English</p>
       </div>
       <div class="shots">
-        <img class="shot" src="img/hero-today.png" width="390" height="844" alt="Fullset on iPhone: Today, with the week strip and the planned workout" decoding="async">
-        <img class="shot" src="img/hero-eat.png" width="390" height="844" alt="Fullset on iPhone: Eat, with the day against the goal and the meals" decoding="async">
+        <img class="shot" src="img/today.png" width="390" height="844" alt="Fullset: Today, with the week strip, today's Pull day and the food left for the day" decoding="async">
+        <img class="shot" src="img/eat.png" width="390" height="844" alt="Fullset: Eat, with the calories left against the goal and protein, carbs and fat" decoding="async">
       </div>
     </section>
 
@@ -74,7 +74,7 @@
 
     <section class="on-lime section">
       <div class="wrap split">
-        <img class="shot" src="img/coach.png" width="390" height="844" alt="Fullset's Coach tab: a coach's clients and their week" loading="lazy" decoding="async">
+        <img class="shot" src="img/progress.png" width="390" height="844" alt="Fullset: Progress, with the month's workouts, records and volume" loading="lazy" decoding="async">
         <div>
           <p class="eyebrow">For coaches</p>
           <h2>Plan their week.<br>See every set.</h2>
@@ -84,22 +84,23 @@
       </div>
     </section>
 
-    <section class="wrap section center" id="join">
-      <h2>Join the beta</h2>
-      <!-- Hidden until the public TestFlight link exists (the Architect, #597 15:12): #join shows only the waitlist. Never a direct APK link on the public site. -->
-      <p class="lede" style="margin-top:20px" hidden>iPhone: open the TestFlight link on your phone. Android: download the APK. New versions every few days, your data stays.</p>
-      <div class="actions" hidden>
-        <a class="pill pill--primary pill--hero" href="#" data-link="TESTFLIGHT_PUBLIC_LINK">Open in TestFlight</a>
-        <a class="pill pill--secondary pill--hero" href="#" data-link="ANDROID_APK_URL">Download for Android</a>
+    <section class="wrap section center" id="get">
+      <h2>Get Fullset</h2>
+      <p class="lede" style="margin-top:20px">Free to start · Pro trial included · Spanish and English</p>
+      <div class="actions">
+        <a class="store" data-store="apple" href="#get"><span class="store__logo store__logo--apple" aria-hidden="true"></span><span class="store__text"><small>Download for</small>iPhone</span></a>
+        <a class="store" data-store="android" href="#get"><span class="store__logo store__logo--android" aria-hidden="true"></span><span class="store__text"><small>Download for</small>Android</span></a>
       </div>
       <!-- The waitlist posts to change 217's joinWaitlist (waitlist.js, byte for byte the app repo's tested fixture). -->
+      <p class="lede" style="margin-top:28px">Tell me what's new</p>
       <form class="waitlist" id="waitlist" action="#" method="post" novalidate>
         <label class="skip" for="waitlist-email">Email</label>
         <input id="waitlist-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required>
-        <button class="pill pill--secondary" type="submit">Tell me when it's public</button>
+        <button class="pill pill--secondary" type="submit">Tell me</button>
         <p class="waitlist__done small" id="waitlist-done" role="status" aria-live="polite"></p>
       </form>
-      <p class="small" id="waitlist-note">No spam. One email when the App Store version is out.</p>
+      <!-- The privacy page's promise (#5): one email when Fullset opens to everyone (MSG-5646 item 4). -->
+      <p class="small" id="waitlist-note">One email when Fullset opens to everyone. No spam.</p>
     </section>
   </main>
   <footer class="footer">
@@ -112,6 +113,7 @@
       <small>© 2026 Fullset</small>
     </div>
   </footer>
+  <script src="store-links.js" defer></script>
   <script src="waitlist.js" defer></script>
 </body>
 </html>

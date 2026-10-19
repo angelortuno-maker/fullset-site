@@ -29,23 +29,25 @@
       <a href="/es#features">Funciones</a>
       <a href="/es/coaches">Entrenadores</a>
       <a href="/es/support">Ayuda</a>
-      <a class="pill pill--primary pill--nav" href="/es#join">Únete a la beta</a>
+      <a class="pill pill--primary pill--nav" href="/es#get">Consigue la app</a>
     </nav>
-    <a class="pill pill--primary pill--nav nav__cta" href="/es#join">Únete a la beta</a>
+    <a class="pill pill--primary pill--nav nav__cta" href="/es#get">Consigue la app</a>
   </header>
     <main id="main">
     <section class="wrap hero">
       <div>
         <h1>Registra cada serie.<br>Come según tu plan.<br>Trae a tu coach.</h1>
         <p class="lede" style="margin-top:24px">Fullset es la app de gym que funciona sin señal, registra tus entrenos y comidas en segundos y deja que tu coach planee tu semana y vea tu progreso. iPhone y Android.</p>
+        <!-- The store links come from /store-links.js (change 285); with none, a button stays on #get. -->
         <div class="actions">
-          <a class="pill pill--primary pill--hero" href="#join">Únete a la beta de iPhone</a>
+          <a class="store" data-store="apple" href="#get"><span class="store__logo store__logo--apple" aria-hidden="true"></span><span class="store__text"><small>Descargar para</small>iPhone</span></a>
+          <a class="store" data-store="android" href="#get"><span class="store__logo store__logo--android" aria-hidden="true"></span><span class="store__text"><small>Descargar para</small>Android</span></a>
         </div>
-        <p class="small">Gratis durante la beta · Prueba de Pro incluida · Español e inglés</p>
+        <p class="small">Gratis para empezar · Prueba de Pro incluida · Español e inglés</p>
       </div>
       <div class="shots">
-        <img class="shot" src="/img/hero-today.png" width="390" height="844" alt="Fullset en iPhone: Hoy, con la semana y el entreno planeado" decoding="async">
-        <img class="shot" src="/img/hero-eat.png" width="390" height="844" alt="Fullset en iPhone: Comer, con el día frente a la meta y las comidas" decoding="async">
+        <img class="shot" src="/img/es/today.png" width="390" height="844" alt="Fullset: Hoy, con la semana, el día de Pull de hoy y las calorías que quedan" decoding="async">
+        <img class="shot" src="/img/es/eat.png" width="390" height="844" alt="Fullset: Comer, con las calorías que quedan frente a la meta, y proteína, carbos y grasa" decoding="async">
       </div>
     </section>
 
@@ -72,7 +74,7 @@
 
     <section class="on-lime section">
       <div class="wrap split">
-        <img class="shot" src="/img/coach.png" width="390" height="844" alt="La pestaña Coach de Fullset: los clientes de un coach y su semana" loading="lazy" decoding="async">
+        <img class="shot" src="/img/es/progress.png" width="390" height="844" alt="Fullset: Progreso, con los entrenos del mes, los récords y el volumen" loading="lazy" decoding="async">
         <div>
           <p class="eyebrow">Para coaches</p>
           <h2>Planea su semana.<br>Ve cada serie.</h2>
@@ -82,21 +84,21 @@
       </div>
     </section>
 
-    <section class="wrap section center" id="join">
-      <h2>Únete a la beta</h2>
-      <!-- Hidden until the public TestFlight link exists (the Architect, issue 597, 15:12), as on the English page. -->
-      <p class="lede" style="margin-top:20px" hidden>iPhone: abre el link de TestFlight en tu teléfono. Nuevas versiones cada pocos días; tus datos se quedan.</p>
-      <div class="actions" hidden>
-        <a class="pill pill--primary pill--hero" href="#" data-link="TESTFLIGHT_PUBLIC_LINK">Abrir en TestFlight</a>
+    <section class="wrap section center" id="get">
+      <h2>Consigue Fullset</h2>
+      <p class="lede" style="margin-top:20px">Gratis para empezar · Prueba de Pro incluida · Español e inglés</p>
+      <div class="actions">
+        <a class="store" data-store="apple" href="#get"><span class="store__logo store__logo--apple" aria-hidden="true"></span><span class="store__text"><small>Descargar para</small>iPhone</span></a>
+        <a class="store" data-store="android" href="#get"><span class="store__logo store__logo--android" aria-hidden="true"></span><span class="store__text"><small>Descargar para</small>Android</span></a>
       </div>
-      <p class="lede" style="margin-top:20px">Avísame cuando sea pública</p>
+      <p class="lede" style="margin-top:28px">Avísame de las novedades</p>
       <form class="waitlist" id="waitlist" action="#" method="post" novalidate>
         <label class="skip" for="waitlist-email">Correo</label>
         <input id="waitlist-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="tu@correo.com" required>
         <button class="pill pill--secondary" type="submit">Avísame</button>
         <p class="waitlist__done small" id="waitlist-done" role="status" aria-live="polite"></p>
       </form>
-      <p class="small" id="waitlist-note">Sin spam. Un solo correo cuando salga la versión de la App Store.</p>
+      <p class="small" id="waitlist-note">Un solo correo cuando Fullset abra para todos. Sin spam.</p>
     </section>
   </main>
   <footer class="footer">
@@ -109,6 +111,7 @@
       <small>© 2026 Fullset</small>
     </div>
   </footer>
+  <script src="/store-links.js" defer></script>
   <script src="/waitlist.js" defer></script>
 </body>
 </html>

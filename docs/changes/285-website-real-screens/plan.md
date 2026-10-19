@@ -28,6 +28,15 @@ Always allowed, not listed: `docs/changes/285-website-real-screens/**`.
 5. Checks: no "beta", "TestFlight" or "APK" anywhere in the served pages (`grep -ri`); no request to another site; no sideways scroll at 320, 390, 768 and 1280.
 6. The web walk at 390 and 1280, with screenshots on the PR. READY on #597. Angel deploys the PR to a preview channel (`hosting:channel:deploy`), says "site ok", then merges and deploys.
 
+## Changes during build
+- The frames were rendered again on Oct 19 (same seed, same 3daf90e export): the web build clips the tab labels (no bottom inset), so the seed now adds an iPhone's 34 px inset under the tab bar before each frame. The app is unchanged.
+- The hero shows Today and Eat; the coach section's frame is Progress (the brief's three screens).
+- Support (EN and ES): the TestFlight feedback card becomes the app's own Me → Settings → Send feedback; the TestFlight-email and Android "install blocked" questions become one "Where do I get the app?" pointing at `#get`.
+- Coaches (EN and ES): "Does my client need a paid account?" now answers "No. Your client signs up free and joins with your code." (coaching isn't gated on Pro in 3daf90e).
+- `styles.css`: `.doc a` wraps, because the privacy pages' delete-account link (from #5) scrolled a 320 px screen sideways by 3 px (EN) and 28 px (ES). The privacy text is unchanged.
+- The anchor `#join` becomes `#get` on every page.
+- `walk/`: the web walk's screenshots (390 for every page, 1280 for both home pages).
+
 ## Risks
 - The links (the Architect's 20:45 note (b)): `ANDROID_URL` = https://play.google.com/apps/internaltest/4701681073761031718 (launch/12). `APPLE_URL`: Angel hasn't posted a TestFlight link on #597, so it ships as `#get` until he does (one line in `store-links.js`).
 - The frames show a demo account ("Alex") with made-up workouts and meals, rendered from the web export. The tab bar and the fonts are the web's, which is close to the phone, but not the same.
