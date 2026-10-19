@@ -32,7 +32,7 @@ Always allowed, not listed: `docs/changes/285-website-real-screens/**`.
 - The frames were rendered again on Oct 19 (same seed, same 3daf90e export): the web build clips the tab labels (no bottom inset), so the seed now adds an iPhone's 34 px inset under the tab bar before each frame. The app is unchanged.
 - The hero shows Today and Eat; the coach section's frame is Progress (the brief's three screens).
 - Support (EN and ES): the TestFlight feedback card becomes the app's own Me → Settings → Send feedback; the TestFlight-email and Android "install blocked" questions become one "Where do I get the app?" pointing at `#get`.
-- Coaches (EN and ES): "Does my client need a paid account?" now answers "No. Your client signs up free and joins with your code." (coaching isn't gated on Pro in 3daf90e).
+- Coaches (EN and ES): "Does my client need a paid account?" answers with the Architect's text from the walk (R1, #597 Oct 19 16:55 CT, https://github.com/angelortuno-maker/angel-log/issues/597#issuecomment-6277944845): "Your client installs Fullset and joins with your code. Coaching is part of Fullset Pro, with a free trial; a coach with 5 or more paying clients gets Pro free." The public promise matches the stores.
 - `styles.css`: `.doc a` wraps, because the privacy pages' delete-account link (from #5) scrolled a 320 px screen sideways by 3 px (EN) and 28 px (ES). The privacy text is unchanged.
 - The anchor `#join` becomes `#get` on every page.
 - `walk/`: the web walk's screenshots (390 for every page, 1280 for both home pages).
