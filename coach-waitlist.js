@@ -12,14 +12,14 @@
       pick: 'Pick how many clients you coach.',
       INVALID_ARGUMENT: 'Check the email address.',
       RESOURCE_EXHAUSTED: 'Too many tries. Try again in an hour.',
-      failed: "Couldn't send that. Try again."
+      failed: 'Something went wrong — try again.'
     },
     es: {
       ok: 'Gracias. Te escribimos cuando abra el acceso anticipado para coaches.',
       pick: 'Elige cuántos clientes entrenas.',
       INVALID_ARGUMENT: 'Revisa el correo.',
       RESOURCE_EXHAUSTED: 'Demasiados intentos. Prueba de nuevo en una hora.',
-      failed: 'No se pudo enviar. Inténtalo de nuevo.'
+      failed: 'Algo salió mal — inténtalo de nuevo.'
     }
   };
 
