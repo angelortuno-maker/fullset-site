@@ -166,6 +166,8 @@ p { margin: 0 0 16px; }
 .early__form > button { order: 4; }
 .early__joined-email { display: none; margin: 0; }
 .early__form[data-state="pick"] .early__status { order: 3; }
+/* A server or network failure is the form's, not a field's: under the button (the Architect's v2 nit). */
+.early__form[data-state="failed"] .early__status { order: 5; }
 .early__form[data-state="pick"] > .early__field:nth-of-type(2) { order: 2; }
 .early__form[data-state="invalid"] .early__status, .early__form[data-state="pick"] .early__status, .early__form[data-state="failed"] .early__status { color: var(--error); font-weight: 600; }
 .early__form[data-state="invalid"] .early__status::before, .early__form[data-state="pick"] .early__status::before, .early__form[data-state="failed"] .early__status::before {
@@ -189,7 +191,7 @@ p { margin: 0 0 16px; }
   .early__form > button { grid-column: 3; grid-row: 1; }
   .early__status { grid-column: 1; grid-row: 2; }
   .early__form[data-state="pick"] .early__status { grid-column: 2; }
-  .early__form[data-state="failed"] .early__status { grid-column: 1 / -1; }
+  .early__form[data-state="failed"] .early__status { grid-column: 1 / -1; justify-self: end; }
   .early__form[data-state="joined"] .early__status { grid-row: 1; }
   .early__form[data-state="joined"] .early__joined-email { grid-row: 2; }
 }
