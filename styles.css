@@ -7,6 +7,8 @@
   --bg: #F5F5F3;
   --card: #FFFFFF;
   --muted: #6B6862;
+  /* Change 331: the app's light danger (design system status/danger), about 5.4:1 on --bg. */
+  --error: #C62828;
   --line: #E2DFD8;
   --volt: #CFFF5E;
   --lime: #E6F7A8;
@@ -141,7 +143,9 @@ p { margin: 0 0 16px; }
 .waitlist__done { flex-basis: 100%; min-height: 24px; margin: 4px 0 0; text-align: center; }
 
 /* Change 331: the coach early-access form on /coaches, in the hero and at the bottom. Labels stay visible; the fields
-   stack on a phone and sit in one row from 720 px; every control is at least 48 px tall. */
+   stack on a phone and sit in one row from 720 px; every control is at least 48 px tall. The script sets data-state:
+   an error shows in the error colour with a "!" under its field (the email's also outlines the field); joined swaps
+   the fields for a confirmation with a check and the email (the Architect's look review). */
 .early { margin-top: 40px; max-width: 760px; }
 .center .early { margin-left: auto; margin-right: auto; text-align: left; }
 .early__head { font-weight: 700; font-size: 18px; margin: 0 0 12px; }
@@ -151,9 +155,43 @@ p { margin: 0 0 16px; }
 .early__form input, .early__form select { width: 100%; min-height: 48px; padding: 0 20px; border-radius: 24px; border: 1px solid var(--line); background: var(--card); font: 400 16px var(--body); color: var(--ink); }
 .early__form input::placeholder { color: var(--muted); }
 .early__form .pill { min-height: 48px; justify-content: center; }
-.early__status { grid-column: 1 / -1; min-height: 24px; margin: 0; }
 .early__privacy { margin: 8px 0 0; }
-@media (min-width: 720px) { .early__form { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto; } }
+.early__privacy a { color: inherit; font-weight: 600; }
+/* On a phone the line sits under the email (or, for a missing range, under the range); from 720 px, under its column. */
+.early__form > :nth-child(1) { order: 1; }
+.early__status { order: 2; margin: -4px 0 0; min-height: 0; font-size: 14px; line-height: 1.5; }
+.early__status:empty { display: none; }
+.early__form > .early__field:nth-of-type(2) { order: 3; }
+.early__form > button { order: 4; }
+.early__joined-email { display: none; margin: 0; }
+.early__form[data-state="pick"] .early__status { order: 3; }
+.early__form[data-state="pick"] > .early__field:nth-of-type(2) { order: 2; }
+.early__form[data-state="invalid"] .early__status, .early__form[data-state="pick"] .early__status, .early__form[data-state="failed"] .early__status { color: var(--error); font-weight: 600; }
+.early__form[data-state="invalid"] .early__status::before, .early__form[data-state="pick"] .early__status::before, .early__form[data-state="failed"] .early__status::before {
+  content: "!"; display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; margin-right: 8px;
+  border-radius: 50%; background: var(--error); color: #fff; font-size: 12px; font-weight: 700; vertical-align: 1px;
+}
+.early__form[data-state="invalid"] input[type=email] { border: 2px solid var(--error); }
+.early__form[data-state="pick"] select { border: 2px solid var(--error); }
+/* Joined: no fields and no button left; the confirmation, in body text, then the email. */
+.early__form[data-state="joined"] > .early__field, .early__form[data-state="joined"] > button { display: none; }
+.early__form[data-state="joined"] .early__status { grid-column: 1 / -1; margin: 0; font-size: 17px; color: var(--ink); }
+.early__form[data-state="joined"] .early__status::before {
+  content: "✓"; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; margin-right: 10px;
+  border-radius: 50%; background: var(--ink); color: var(--volt); font-size: 14px; font-weight: 700; vertical-align: 1px;
+}
+.early__form[data-state="joined"] .early__joined-email { display: block; grid-column: 1 / -1; order: 3; padding-left: 34px; font-weight: 600; }
+@media (min-width: 720px) {
+  .early__form { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto; }
+  .early__form > :nth-child(1) { grid-column: 1; grid-row: 1; }
+  .early__form > .early__field:nth-of-type(2) { grid-column: 2; grid-row: 1; }
+  .early__form > button { grid-column: 3; grid-row: 1; }
+  .early__status { grid-column: 1; grid-row: 2; }
+  .early__form[data-state="pick"] .early__status { grid-column: 2; }
+  .early__form[data-state="failed"] .early__status { grid-column: 1 / -1; }
+  .early__form[data-state="joined"] .early__status { grid-row: 1; }
+  .early__form[data-state="joined"] .early__joined-email { grid-row: 2; }
+}
 
 /* Footer */
 .footer { background: var(--ink); color: var(--on-dark); padding: 40px 0; }

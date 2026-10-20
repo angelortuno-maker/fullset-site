@@ -1,7 +1,9 @@
 /* Fullset's /coaches early-access form (fullset-site; kept in the app repo as a test fixture, change 331).
    Plain script, no library, no build step: <script src="/coach-waitlist.js" defer></script> after the forms. Each
    form[data-coach-waitlist data-source="coaches-hero|coaches-bottom"] holds an input[type=email], a select[name=clients],
-   a submit button and a [role=status] line. It posts to change 217's joinWaitlist with role "coach". */
+   a submit button and a [role=status] line. It posts to change 217's joinWaitlist with role "coach". The form's
+   data-state (joined, invalid, pick, failed, or none) lets the page's CSS show the confirmation or the error; a
+   [data-joined-email] element, if there is one, shows the email that joined. */
 (function (w) {
   'use strict';
   const URL = 'https://us-central1-angel-log-48bac.cloudfunctions.net/joinWaitlist';
@@ -43,6 +45,11 @@
     return any ? out : null;
   }
 
+  /** The form's state for the page's CSS: 'joined', 'invalid' (the email), 'pick' (the range), 'failed', or '' while editing. */
+  function setState(form, state) {
+    if (typeof form.setAttribute === 'function') form.setAttribute('data-state', state);
+  }
+
   function wire(form, fetchImpl, search) {
     const input = form.querySelector('input[type=email]');
     const select = form.querySelector('select[name=clients]');
@@ -55,6 +62,7 @@
       const lines = LINES[lang];
       const clients = String(select.value || '');
       if (!clients) {
+        setState(form, 'pick');
         status.textContent = lines.pick;
         return;
       }
@@ -68,6 +76,7 @@
       const utm = utmOf(search);
       if (utm) data.utm = utm;
       button.disabled = true;
+      setState(form, '');
       return Promise.resolve()
         .then(function () {
           return fetchImpl(URL, {
@@ -83,16 +92,21 @@
         })
         .then(function (body) {
           if (body && body.result && body.result.ok === true) {
-            // Joined (or already on the list: the same answer): the button stays off.
+            // Joined (or already on the list: the same answer): the button stays off, and the page shows the email.
             status.textContent = lines.ok;
+            const shown = form.querySelector('[data-joined-email]');
+            if (shown) shown.textContent = data.email;
+            setState(form, 'joined');
             return;
           }
           const code = body && body.error && body.error.status;
           status.textContent = lines[code === 'RESOURCE_EXHAUSTED' || code === 'INVALID_ARGUMENT' ? code : 'failed'];
+          setState(form, code === 'INVALID_ARGUMENT' ? 'invalid' : 'failed');
           button.disabled = false;
         })
         .catch(function () {
           status.textContent = lines.failed;
+          setState(form, 'failed');
           button.disabled = false;
         });
     });
