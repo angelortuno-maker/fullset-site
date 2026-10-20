@@ -1,6 +1,6 @@
 # Plan 311: the Android button goes back to #get until Play production
 
-From: the Architect's correction (angel-log #597, 22:23 CT Oct 19): a closed-test or internal-test join link must not be on the site, since it only works for listed testers. Numbered and assigned by the Lead (22:23 CT, https://github.com/angelortuno-maker/angel-log/issues/597#issuecomment-6282594470) · Status: draft (G1 to G3: the Architect, as its own one-line plan or riding with A15 / 300, angel-log#862) · Branch: `change/311-android-link-off` in fullset-site (Engineer 3), cut at main 518ab6c · PR into `main`
+From: the Architect's correction (angel-log #597, 22:23 CT Oct 19): a closed-test or internal-test join link must not be on the site, since it only works for listed testers. Numbered and assigned by the Lead (22:23 CT, https://github.com/angelortuno-maker/angel-log/issues/597#issuecomment-6282594470) · Status: approved (G1 to G3: the Architect, 22:35 CT, as its own change; recorded by the Lead, https://github.com/angelortuno-maker/angel-log/issues/597#issuecomment-6282842355) · Branch: `change/311-android-link-off` in fullset-site (Engineer 3), cut at main 518ab6c · PR into `main`
 Architecture-impacting: no. One config value.
 
 ## Files in scope
