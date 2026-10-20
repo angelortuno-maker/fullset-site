@@ -140,6 +140,21 @@ p { margin: 0 0 16px; }
 .waitlist input::placeholder { color: var(--muted); }
 .waitlist__done { flex-basis: 100%; min-height: 24px; margin: 4px 0 0; text-align: center; }
 
+/* Change 331: the coach early-access form on /coaches, in the hero and at the bottom. Labels stay visible; the fields
+   stack on a phone and sit in one row from 720 px; every control is at least 48 px tall. */
+.early { margin-top: 40px; max-width: 760px; }
+.center .early { margin-left: auto; margin-right: auto; text-align: left; }
+.early__head { font-weight: 700; font-size: 18px; margin: 0 0 12px; }
+.early__form { display: grid; grid-template-columns: 1fr; gap: 12px; align-items: end; }
+.early__field { display: grid; gap: 6px; min-width: 0; }
+.early__field label { font-size: 14px; font-weight: 600; }
+.early__form input, .early__form select { width: 100%; min-height: 48px; padding: 0 20px; border-radius: 24px; border: 1px solid var(--line); background: var(--card); font: 400 16px var(--body); color: var(--ink); }
+.early__form input::placeholder { color: var(--muted); }
+.early__form .pill { min-height: 48px; justify-content: center; }
+.early__status { grid-column: 1 / -1; min-height: 24px; margin: 0; }
+.early__privacy { margin: 8px 0 0; }
+@media (min-width: 720px) { .early__form { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) auto; } }
+
 /* Footer */
 .footer { background: var(--ink); color: var(--on-dark); padding: 40px 0; }
 .footer .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }

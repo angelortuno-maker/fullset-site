@@ -44,6 +44,29 @@
         <h1>One app for you<br>and your clients.</h1>
         <p class="lede" style="margin-top:24px">Your clients log in Fullset. You plan their week, set their goals and see every set they did, from your own phone. No spreadsheets, no screenshots on WhatsApp.</p>
         <div class="actions"><a class="pill pill--primary pill--hero" href="../#get">Start coaching</a></div>
+        <!-- Change 331: coach early access, posting to joinWaitlist with role "coach" (coach-waitlist.js, byte for byte the app repo's tested fixture). -->
+        <div class="early" id="early-access">
+          <p class="early__head">Early access for coaches</p>
+          <form class="early__form" data-coach-waitlist data-source="coaches-hero" action="#" method="post" novalidate>
+            <div class="early__field">
+              <label for="ea-hero-email">Email</label>
+              <input id="ea-hero-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required>
+            </div>
+            <div class="early__field">
+              <label for="ea-hero-clients">How many clients do you coach?</label>
+              <select id="ea-hero-clients" name="clients" required>
+            <option value="">Choose one</option>
+            <option value="none">Not yet</option>
+            <option value="1-5">1–5</option>
+            <option value="6-20">6–20</option>
+            <option value="21+">More than 20</option>
+              </select>
+            </div>
+            <button class="pill pill--primary" type="submit">Get early access</button>
+            <p class="early__status small" role="status" aria-live="polite"></p>
+          </form>
+          <p class="early__privacy small">We keep your email, that you're a coach, your client range and language, only to tell you about early access. Ask us to delete it any time.</p>
+        </div>
       </div>
     </section>
 
@@ -76,6 +99,29 @@
         <h2>Bring your first client</h2>
         <p class="lede" style="margin-top:20px">Get the app, tap Invite a client, send the code.</p>
         <div class="actions"><a class="pill pill--primary pill--hero" href="../#get">Get the app</a></div>
+        <!-- Change 331: coach early access, posting to joinWaitlist with role "coach" (coach-waitlist.js, byte for byte the app repo's tested fixture). -->
+        <div class="early" id="early-access-bottom">
+          <p class="early__head">Early access for coaches</p>
+          <form class="early__form" data-coach-waitlist data-source="coaches-bottom" action="#" method="post" novalidate>
+            <div class="early__field">
+              <label for="ea-bottom-email">Email</label>
+              <input id="ea-bottom-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required>
+            </div>
+            <div class="early__field">
+              <label for="ea-bottom-clients">How many clients do you coach?</label>
+              <select id="ea-bottom-clients" name="clients" required>
+            <option value="">Choose one</option>
+            <option value="none">Not yet</option>
+            <option value="1-5">1–5</option>
+            <option value="6-20">6–20</option>
+            <option value="21+">More than 20</option>
+              </select>
+            </div>
+            <button class="pill pill--primary" type="submit">Get early access</button>
+            <p class="early__status small" role="status" aria-live="polite"></p>
+          </form>
+          <p class="early__privacy small">We keep your email, that you're a coach, your client range and language, only to tell you about early access. Ask us to delete it any time.</p>
+        </div>
       </div>
     </section>
   </main>
@@ -89,5 +135,6 @@
       <small>© 2026 Fullset</small>
     </div>
   </footer>
+  <script src="../coach-waitlist.js" defer></script>
 </body>
 </html>
