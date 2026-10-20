@@ -60,6 +60,14 @@ p { margin: 0 0 16px; }
 .pill--hero { min-height: 56px; padding: 0 28px; border-radius: 28px; font-size: 17px; }
 .pill--nav { min-height: 40px; padding: 0 20px; border-radius: 20px; font-size: 15px; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 16px; }
+/* Change 285: the store buttons. Plain logos until the store release (the brand rules: official badges then). */
+.store { display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 24px 8px 20px; border-radius: 28px; background: var(--ink); color: var(--volt); text-decoration: none; text-align: left; transition: opacity .15s; }
+.store:hover { opacity: .85; }
+.store__logo { flex: none; width: 24px; height: 24px; background: currentColor; -webkit-mask: var(--logo) center / contain no-repeat; mask: var(--logo) center / contain no-repeat; }
+.store__logo--apple { --logo: url(img/apple.svg); }
+.store__logo--android { --logo: url(img/android.svg); }
+.store__text { display: flex; flex-direction: column; font: 600 17px/1.1 var(--body); color: var(--on-dark); }
+.store__text small { font: 500 12px/1.2 var(--body); color: var(--muted-on-dark); }
 
 /* Nav */
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; }
@@ -67,7 +75,20 @@ p { margin: 0 0 16px; }
 .nav__links { display: none; align-items: center; gap: 28px; }
 .nav__links a:not(.pill) { font: 500 15px/1 var(--body); text-decoration: none; }
 .nav__links a:not(.pill):hover { text-decoration: underline; }
-@media (min-width: 1024px) { .nav__links { display: flex; } .nav__cta { display: none; } }
+.nav__end { display: flex; align-items: center; gap: 8px; }
+@media (min-width: 1024px) { .nav__links { display: flex; } .nav__end { display: none; } }
+/* Change 285 R2: the language switch, named in the language it switches to; "ES" / "EN" under 400 px. No flags. */
+.lang__short { display: none; }
+/* Under 400 px the header holds the wordmark, the switch and "Consigue la app" on one row, each pill on one line. */
+.nav .pill--nav { white-space: nowrap; }
+@media (max-width: 399px) {
+  .lang__long { display: none; }
+  .lang__short { display: inline; }
+  .nav { gap: 10px; }
+  .nav .wordmark { font-size: 22px; letter-spacing: 0.12em; }
+  .nav__end { gap: 6px; }
+  .nav .pill--nav { padding: 0 12px; font-size: 14px; }
+}
 
 /* Hero */
 .hero { display: grid; gap: 40px; align-items: center; padding-block: 32px var(--section); }
@@ -76,6 +97,14 @@ p { margin: 0 0 16px; }
 .shot { width: min(220px, 44vw); max-width: 100%; height: auto; border-radius: 28px; box-shadow: 0 24px 60px rgba(22, 20, 18, 0.18); background: var(--card); }
 @media (min-width: 1024px) { .shot { width: 260px; } }
 .shot + .shot { margin-left: -60px; margin-top: 48px; transform: rotate(-6deg); }
+/* Change 285 R3: the hero's third frame (Coach), from 1024 px up; on phones the hero keeps two. */
+.shot--wide { display: none; }
+@media (min-width: 1024px) {
+  /* Three frames, two 56 px overlaps, and room for the turned third one inside the column. */
+  .shots .shot { width: min(210px, calc((100% + 112px) / 3 - 16px)); }
+  .shots .shot + .shot { margin-left: -56px; }
+  .shots .shot--wide { display: block; margin-top: 0; transform: rotate(6deg); }
+}
 
 /* Bands and cards */
 .on-ink { background: var(--ink); color: var(--on-dark); }
@@ -126,3 +155,5 @@ p { margin: 0 0 16px; }
 .doc ul { padding-left: 22px; }
 .doc li { margin-bottom: 8px; }
 .doc .muted { color: var(--muted); }
+/* A long link (thefullsetapp.com/es/support#delete-account) wraps rather than scrolling a 320 px screen sideways. */
+.doc a { overflow-wrap: anywhere; }
