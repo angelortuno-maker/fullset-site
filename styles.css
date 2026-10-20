@@ -7,8 +7,9 @@
   --bg: #F5F5F3;
   --card: #FFFFFF;
   --muted: #6B6862;
-  /* Change 331: the app's light danger (design system status/danger), about 5.4:1 on --bg. */
+  /* The site's error token (MSG-5696): the app's light-theme danger red, 5.4:1 on --bg and 5:1 on --lime. */
   --error: #C62828;
+  --on-error: #FFFFFF;
   --line: #E2DFD8;
   --volt: #CFFF5E;
   --lime: #E6F7A8;
@@ -169,7 +170,7 @@ p { margin: 0 0 16px; }
 .early__form[data-state="invalid"] .early__status, .early__form[data-state="pick"] .early__status, .early__form[data-state="failed"] .early__status { color: var(--error); font-weight: 600; }
 .early__form[data-state="invalid"] .early__status::before, .early__form[data-state="pick"] .early__status::before, .early__form[data-state="failed"] .early__status::before {
   content: "!"; display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; margin-right: 8px;
-  border-radius: 50%; background: var(--error); color: #fff; font-size: 12px; font-weight: 700; vertical-align: 1px;
+  border-radius: 50%; background: var(--error); color: var(--on-error); font-size: 12px; font-weight: 700; vertical-align: 1px;
 }
 .early__form[data-state="invalid"] input[type=email] { border: 2px solid var(--error); }
 .early__form[data-state="pick"] select { border: 2px solid var(--error); }
