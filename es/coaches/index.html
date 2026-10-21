@@ -43,42 +43,24 @@
         <p class="eyebrow">Para coaches</p>
         <h1>Una app para ti<br>y tus clientes.</h1>
         <p class="lede" style="margin-top:24px">Tus clientes registran en Fullset. Tú planeas su semana, fijas sus metas y ves cada serie que hicieron, desde tu propio teléfono. Sin hojas de cálculo, sin capturas por WhatsApp.</p>
-        <div class="actions"><a class="pill pill--secondary pill--hero" href="/es#get">Empieza a entrenar clientes</a></div>
-        <!-- Change 331: coach early access, posting to joinWaitlist with role "coach" (coach-waitlist.js, byte for byte the app repo's tested fixture). -->
-        <div class="early" id="early-access">
-          <p class="early__head">Acceso anticipado para coaches</p>
-          <form class="early__form" data-coach-waitlist data-source="coaches-hero" action="#" method="post" novalidate>
-            <div class="early__field">
-              <label for="ea-hero-email">Correo</label>
-              <input id="ea-hero-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="tu@correo.com" required>
-            </div>
-            <p class="early__status" role="status" aria-live="polite"></p>
-            <p class="early__joined-email" data-joined-email></p>
-            <div class="early__field">
-              <label for="ea-hero-clients">¿Cuántos clientes entrenas?</label>
-              <select id="ea-hero-clients" name="clients" required>
-            <option value="">Elige una opción</option>
-            <option value="none">Aún no</option>
-            <option value="1-5">1–5</option>
-            <option value="6-20">6–20</option>
-            <option value="21+">Más de 20</option>
-              </select>
-            </div>
-            <button class="pill pill--primary" type="submit">Quiero acceso anticipado</button>
-          </form>
-          <p class="early__privacy small">Guardamos tu correo, que eres coach, tu rango de clientes y tu idioma, solo para avisarte del acceso anticipado. Pídenos borrarlo cuando quieras. <a href="/es/privacy">Privacidad</a></p>
+        <!-- Change 334 (MSG-5710): we're live, so the hero's main action is the store buttons. A button whose link is empty in
+             store-links.js stays hidden (data-hide-empty): iPhone appears once its link is set. -->
+        <div class="actions" role="group" aria-label="Descarga la app">
+          <a class="store" data-store="android" data-hide-empty href="/es#get"><span class="store__logo store__logo--android" aria-hidden="true"></span><span class="store__text"><small>Descargar para</small>Android</span></a>
+          <a class="store" data-store="apple" data-hide-empty href="/es#get"><span class="store__logo store__logo--apple" aria-hidden="true"></span><span class="store__text"><small>Descargar para</small>iPhone</span></a>
+          <a class="pill pill--secondary pill--hero" href="#how">Empieza a entrenar clientes</a>
         </div>
       </div>
     </section>
 
-    <section class="on-ink section">
+    <section class="on-ink section" id="how">
       <div class="wrap">
         <h2>Cómo funciona</h2>
         <ol class="grid grid--5" style="list-style:none;padding:0">
           <li class="card card--dark"><div class="card__num" aria-hidden="true">1</div><h3 class="card__title">Invita</h3><p class="card__body">Toca Invitar a un cliente. Envía el código de seis caracteres. Tu cliente lo escribe en su pestaña Coach.</p></li>
-          <li class="card card--dark"><div class="card__num" aria-hidden="true">2</div><h3 class="card__title">Fija metas</h3><p class="card__body">Rutina, sesiones por semana, calorías y macros, agua. Tu cliente ve una pequeña marca Coach en cada una.</p></li>
+          <li class="card card--dark"><div class="card__num" aria-hidden="true">2</div><h3 class="card__title">Fija metas</h3><p class="card__body">Rutina, sesiones por semana, calorías y macros, agua. Tu cliente ve tu nombre en cada una.</p></li>
           <li class="card card--dark"><div class="card__num" aria-hidden="true">3</div><h3 class="card__title">Planea la semana</h3><p class="card__body">Sesiones completas (ejercicios, series × repeticiones, peso, descanso) y comidas (metas y recetas). Hasta un mes adelante.</p></li>
-          <li class="card card--dark"><div class="card__num" aria-hidden="true">4</div><h3 class="card__title">Reutiliza</h3><p class="card__body">Guarda una sesión o una semana como plan. Aplícala a otro cliente en dos toques.</p></li>
+          <li class="card card--dark"><div class="card__num" aria-hidden="true">4</div><h3 class="card__title">Reutiliza</h3><p class="card__body">Guarda una sesión como plan. Aplícala a otro cliente por 1, 2 o 4 semanas.</p></li>
           <li class="card card--dark"><div class="card__num" aria-hidden="true">5</div><h3 class="card__title">Revisa</h3><p class="card__body">Historial y Hoy de cada cliente. Cuando tu cliente cambia algo, lo ves marcado como cambiado.</p></li>
         </ol>
       </div>
@@ -87,9 +69,9 @@
     <section class="wrap section">
       <h2>Preguntas de coaches</h2>
       <div class="grid grid--2">
-        <article class="card"><h3 class="card__title">¿Mi cliente necesita una cuenta de pago?</h3><p>Tu cliente instala Fullset y se une con tu código. El coaching es parte de Fullset Pro, con prueba gratis; un coach con 5 o más clientes de pago tiene Pro gratis.</p></article>
-        <article class="card"><h3 class="card__title">¿Un cliente puede tener más de un coach?</h3><p>Un coach a la vez. Puede dejar a su coach y unirse a otro; su registro sigue siendo suyo.</p></article>
-        <article class="card"><h3 class="card__title">¿Qué puedo ver?</h3><p>Sus entrenos, su Hoy, sus metas y las comidas que le asignaste. No sus fotos ni nada que no haya registrado en la app.</p></article>
+        <article class="card"><h3 class="card__title">¿Mi cliente necesita una cuenta de pago?</h3><p>No. Tu cliente instala Fullset y se une con tu código. El coaching es gratis durante la beta.</p></article>
+        <article class="card"><h3 class="card__title">¿Un cliente puede tener más de un coach?</h3><p>Sí, cada coach con su propio código. Tu cliente puede dejar a un coach cuando quiera; su registro sigue siendo suyo.</p></article>
+        <article class="card"><h3 class="card__title">¿Qué puedo ver?</h3><p>Sus entrenos, su Hoy, y si sigue las metas y comidas que fijaste. No su registro de comidas, su peso ni sus fotos.</p></article>
         <article class="card"><h3 class="card__title">¿Puede cambiar lo que le asigné?</h3><p>Sí, es su día. En la vista de la semana ves qué cambió.</p></article>
         <article class="card"><h3 class="card__title">¿En español?</h3><p>Cada uno elige su idioma en Yo → Ajustes.</p></article>
       </div>
@@ -100,30 +82,6 @@
         <h2>Trae a tu primer cliente</h2>
         <p class="lede" style="margin-top:20px">Consigue la app, toca Invitar a un cliente y envía el código.</p>
         <div class="actions"><a class="pill pill--primary pill--hero" href="/es#get">Consigue la app</a></div>
-        <!-- Change 331: coach early access, posting to joinWaitlist with role "coach" (coach-waitlist.js, byte for byte the app repo's tested fixture). -->
-        <div class="early" id="early-access-bottom">
-          <p class="early__head">Acceso anticipado para coaches</p>
-          <form class="early__form" data-coach-waitlist data-source="coaches-bottom" action="#" method="post" novalidate>
-            <div class="early__field">
-              <label for="ea-bottom-email">Correo</label>
-              <input id="ea-bottom-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="tu@correo.com" required>
-            </div>
-            <p class="early__status" role="status" aria-live="polite"></p>
-            <p class="early__joined-email" data-joined-email></p>
-            <div class="early__field">
-              <label for="ea-bottom-clients">¿Cuántos clientes entrenas?</label>
-              <select id="ea-bottom-clients" name="clients" required>
-            <option value="">Elige una opción</option>
-            <option value="none">Aún no</option>
-            <option value="1-5">1–5</option>
-            <option value="6-20">6–20</option>
-            <option value="21+">Más de 20</option>
-              </select>
-            </div>
-            <button class="pill pill--primary" type="submit">Quiero acceso anticipado</button>
-          </form>
-          <p class="early__privacy small">Guardamos tu correo, que eres coach, tu rango de clientes y tu idioma, solo para avisarte del acceso anticipado. Pídenos borrarlo cuando quieras. <a href="/es/privacy">Privacidad</a></p>
-        </div>
       </div>
     </section>
   </main>
@@ -137,6 +95,6 @@
       <small>© 2026 Fullset</small>
     </div>
   </footer>
-  <script src="/coach-waitlist.js" defer></script>
+  <script src="/store-links.js" defer></script>
 </body>
 </html>
