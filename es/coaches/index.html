@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Fullset para coaches</title>
-  <meta name="description" content="Tus clientes registran en Fullset. Tú planeas su semana, fijas sus metas y ves cada serie, desde tu teléfono.">
+  <meta name="description" content="Tus clientes registran en Fullset. Tú planeas su semana, fijas sus metas y ves cada entreno que terminan, desde tu teléfono.">
   <link rel="canonical" href="https://thefullsetapp.com/es/coaches">
   <link rel="alternate" hreflang="en" href="https://thefullsetapp.com/coaches">
   <link rel="alternate" hreflang="es" href="https://thefullsetapp.com/es/coaches">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Fullset para coaches">
-  <meta property="og:description" content="Tus clientes registran en Fullset. Tú planeas su semana, fijas sus metas y ves cada serie, desde tu teléfono.">
+  <meta property="og:description" content="Tus clientes registran en Fullset. Tú planeas su semana, fijas sus metas y ves cada entreno que terminan, desde tu teléfono.">
   <meta property="og:url" content="https://thefullsetapp.com/es/coaches">
   <meta property="og:image" content="https://thefullsetapp.com/img/og.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -42,12 +42,13 @@
       <div>
         <p class="eyebrow">Para coaches</p>
         <h1>Una app para ti<br>y tus clientes.</h1>
-        <p class="lede" style="margin-top:24px">Tus clientes registran en Fullset. Tú planeas su semana, fijas sus metas y ves cada serie que hicieron, desde tu propio teléfono. Sin hojas de cálculo, sin capturas por WhatsApp.</p>
-        <!-- Change 334 (MSG-5710): we're live, so the hero's main action is the store buttons. A button whose link is empty in
-             store-links.js stays hidden (data-hide-empty): iPhone appears once its link is set. -->
+        <p class="lede" style="margin-top:24px">Tus clientes registran en Fullset. Tú planeas su semana, fijas sus metas y ves cada entreno que terminan, desde tu propio teléfono. Sin hojas de cálculo, sin capturas por WhatsApp.</p>
+        <!-- Change 334 (MSG-5710): the hero's main action is getting the app. Each store button stays hidden while its link in
+             store-links.js is empty (data-hide-empty, MSG-5711); until one has a link, "Get the app" goes to the home page's #get. -->
         <div class="actions" role="group" aria-label="Descarga la app">
-          <a class="store" data-store="android" data-hide-empty href="/es#get"><span class="store__logo store__logo--android" aria-hidden="true"></span><span class="store__text"><small>Descargar para</small>Android</span></a>
-          <a class="store" data-store="apple" data-hide-empty href="/es#get"><span class="store__logo store__logo--apple" aria-hidden="true"></span><span class="store__text"><small>Descargar para</small>iPhone</span></a>
+          <a class="store" data-store="android" data-hide-empty hidden href="/es#get"><span class="store__logo store__logo--android" aria-hidden="true"></span><span class="store__text"><small>Descargar para</small>Android</span></a>
+          <a class="store" data-store="apple" data-hide-empty hidden href="/es#get"><span class="store__logo store__logo--apple" aria-hidden="true"></span><span class="store__text"><small>Descargar para</small>iPhone</span></a>
+          <a class="pill pill--primary pill--hero" data-store-fallback href="/es#get">Consigue la app</a>
           <a class="pill pill--secondary pill--hero" href="#how">Empieza a entrenar clientes</a>
         </div>
       </div>
@@ -57,8 +58,8 @@
       <div class="wrap">
         <h2>Cómo funciona</h2>
         <ol class="grid grid--5" style="list-style:none;padding:0">
-          <li class="card card--dark"><div class="card__num" aria-hidden="true">1</div><h3 class="card__title">Invita</h3><p class="card__body">Toca Invitar a un cliente. Envía el código de seis caracteres. Tu cliente lo escribe en su pestaña Coach.</p></li>
-          <li class="card card--dark"><div class="card__num" aria-hidden="true">2</div><h3 class="card__title">Fija metas</h3><p class="card__body">Rutina, sesiones por semana, calorías y macros, agua. Tu cliente ve tu nombre en cada una.</p></li>
+          <li class="card card--dark"><div class="card__num" aria-hidden="true">1</div><h3 class="card__title">Invita</h3><p class="card__body">Toca Invitar a un cliente y envía el enlace o el código de seis caracteres. Tu cliente lo escribe en su pestaña Coach y acepta.</p></li>
+          <li class="card card--dark"><div class="card__num" aria-hidden="true">2</div><h3 class="card__title">Fija metas</h3><p class="card__body">Rutina, sesiones por semana, calorías y macros, agua. Tu cliente las ve bajo tu nombre en su pestaña Coach.</p></li>
           <li class="card card--dark"><div class="card__num" aria-hidden="true">3</div><h3 class="card__title">Planea la semana</h3><p class="card__body">Sesiones completas (ejercicios, series × repeticiones, peso, descanso) y comidas (metas y recetas). Hasta un mes adelante.</p></li>
           <li class="card card--dark"><div class="card__num" aria-hidden="true">4</div><h3 class="card__title">Reutiliza</h3><p class="card__body">Guarda una sesión como plan. Aplícala a otro cliente por 1, 2 o 4 semanas.</p></li>
           <li class="card card--dark"><div class="card__num" aria-hidden="true">5</div><h3 class="card__title">Revisa</h3><p class="card__body">Historial y Hoy de cada cliente. Cuando tu cliente cambia algo, lo ves marcado como cambiado.</p></li>
@@ -69,9 +70,9 @@
     <section class="wrap section">
       <h2>Preguntas de coaches</h2>
       <div class="grid grid--2">
-        <article class="card"><h3 class="card__title">¿Mi cliente necesita una cuenta de pago?</h3><p>No. Tu cliente instala Fullset y se une con tu código. El coaching es gratis durante la beta.</p></article>
+        <article class="card"><h3 class="card__title">¿Mi cliente necesita una cuenta de pago?</h3><p>No. Tu cliente instala Fullset y se une con tu código.</p></article>
         <article class="card"><h3 class="card__title">¿Un cliente puede tener más de un coach?</h3><p>Sí, cada coach con su propio código. Tu cliente puede dejar a un coach cuando quiera; su registro sigue siendo suyo.</p></article>
-        <article class="card"><h3 class="card__title">¿Qué puedo ver?</h3><p>Sus entrenos, su Hoy, y si sigue las metas y comidas que fijaste. No su registro de comidas, su peso ni sus fotos.</p></article>
+        <article class="card"><h3 class="card__title">¿Qué puedo ver?</h3><p>Sus entrenos, su Hoy, y si hizo las sesiones que le fijaste. No su registro de comidas, su peso ni sus fotos.</p></article>
         <article class="card"><h3 class="card__title">¿Puede cambiar lo que le asigné?</h3><p>Sí, es su día. En la vista de la semana ves qué cambió.</p></article>
         <article class="card"><h3 class="card__title">¿En español?</h3><p>Cada uno elige su idioma en Yo → Ajustes.</p></article>
       </div>
