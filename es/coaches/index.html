@@ -43,7 +43,31 @@
         <p class="eyebrow">Para coaches</p>
         <h1>Una app para ti<br>y tus clientes.</h1>
         <p class="lede" style="margin-top:24px">Tus clientes registran en Fullset. Tú planeas su semana, fijas sus metas y ves cada serie que hicieron, desde tu propio teléfono. Sin hojas de cálculo, sin capturas por WhatsApp.</p>
-        <div class="actions"><a class="pill pill--primary pill--hero" href="/es#get">Empieza a entrenar clientes</a></div>
+        <div class="actions"><a class="pill pill--secondary pill--hero" href="/es#get">Empieza a entrenar clientes</a></div>
+        <!-- Change 331: coach early access, posting to joinWaitlist with role "coach" (coach-waitlist.js, byte for byte the app repo's tested fixture). -->
+        <div class="early" id="early-access">
+          <p class="early__head">Acceso anticipado para coaches</p>
+          <form class="early__form" data-coach-waitlist data-source="coaches-hero" action="#" method="post" novalidate>
+            <div class="early__field">
+              <label for="ea-hero-email">Correo</label>
+              <input id="ea-hero-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="tu@correo.com" required>
+            </div>
+            <p class="early__status" role="status" aria-live="polite"></p>
+            <p class="early__joined-email" data-joined-email></p>
+            <div class="early__field">
+              <label for="ea-hero-clients">¿Cuántos clientes entrenas?</label>
+              <select id="ea-hero-clients" name="clients" required>
+            <option value="">Elige una opción</option>
+            <option value="none">Aún no</option>
+            <option value="1-5">1–5</option>
+            <option value="6-20">6–20</option>
+            <option value="21+">Más de 20</option>
+              </select>
+            </div>
+            <button class="pill pill--primary" type="submit">Quiero acceso anticipado</button>
+          </form>
+          <p class="early__privacy small">Guardamos tu correo, que eres coach, tu rango de clientes y tu idioma, solo para avisarte del acceso anticipado. Pídenos borrarlo cuando quieras. <a href="/es/privacy">Privacidad</a></p>
+        </div>
       </div>
     </section>
 
@@ -76,6 +100,30 @@
         <h2>Trae a tu primer cliente</h2>
         <p class="lede" style="margin-top:20px">Consigue la app, toca Invitar a un cliente y envía el código.</p>
         <div class="actions"><a class="pill pill--primary pill--hero" href="/es#get">Consigue la app</a></div>
+        <!-- Change 331: coach early access, posting to joinWaitlist with role "coach" (coach-waitlist.js, byte for byte the app repo's tested fixture). -->
+        <div class="early" id="early-access-bottom">
+          <p class="early__head">Acceso anticipado para coaches</p>
+          <form class="early__form" data-coach-waitlist data-source="coaches-bottom" action="#" method="post" novalidate>
+            <div class="early__field">
+              <label for="ea-bottom-email">Correo</label>
+              <input id="ea-bottom-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="tu@correo.com" required>
+            </div>
+            <p class="early__status" role="status" aria-live="polite"></p>
+            <p class="early__joined-email" data-joined-email></p>
+            <div class="early__field">
+              <label for="ea-bottom-clients">¿Cuántos clientes entrenas?</label>
+              <select id="ea-bottom-clients" name="clients" required>
+            <option value="">Elige una opción</option>
+            <option value="none">Aún no</option>
+            <option value="1-5">1–5</option>
+            <option value="6-20">6–20</option>
+            <option value="21+">Más de 20</option>
+              </select>
+            </div>
+            <button class="pill pill--primary" type="submit">Quiero acceso anticipado</button>
+          </form>
+          <p class="early__privacy small">Guardamos tu correo, que eres coach, tu rango de clientes y tu idioma, solo para avisarte del acceso anticipado. Pídenos borrarlo cuando quieras. <a href="/es/privacy">Privacidad</a></p>
+        </div>
       </div>
     </section>
   </main>
@@ -89,5 +137,6 @@
       <small>© 2026 Fullset</small>
     </div>
   </footer>
+  <script src="/coach-waitlist.js" defer></script>
 </body>
 </html>
