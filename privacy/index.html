@@ -62,22 +62,33 @@
     <p>The app does not read your phone's health app (Apple Health or Health Connect) and does not write to it. Body weight comes only from what you enter in Fullset.</p>
     <h2>Crash reports</h2>
     <p>When the app crashes or an action fails, Sentry receives technical details (device model, system and app version, the screen and action, recent screen names) under a random install ID, never your account, your log or anything you typed. Turn it off: Me → Settings → Share crash reports.</p>
+    <h2>Usage data</h2>
+    <p>If <strong>Share usage data</strong> is on, the app sends Google Analytics for Firebase anonymous counts of what you use:</p>
+    <ul>
+      <li>the screens you open;</li>
+      <li>when you sign up or sign in, and how;</li>
+      <li>when you start or finish a workout, with its day type and a rough size (like "6–10 sets");</li>
+      <li>when you log a meal or water, and how (search, barcode, photo…);</li>
+      <li>when you repeat a day, change the language, open the Pro screen, or start a trial or purchase;</li>
+      <li>coach invites and assignments.</li>
+    </ul>
+    <p>It never includes your name, email, account ID, weights, foods, notes or body data. The counts are tied only to a random ID for this install, which is reset when you turn the switch off. The advertising ID, Google signals and ad personalisation are off, and Google keeps the counts for 14 months. <strong>The switch is on by default, except in the EU/EEA, the UK and Switzerland (or if the phone's region is unknown), where it starts off until you turn it on.</strong> Change it any time in Me → Settings → Privacy. Turned off, nothing more is sent.</p>
     <h2>Purchases</h2>
     <p>Apple or Google handles payment for Fullset Pro, and our subscription service, RevenueCat, tells the app whether you have Pro. RevenueCat links your status to your account's random ID, never your email. We never see your payment details.</p>
     <h2>Barcode lookups</h2>
-    <p>When you scan a barcode Fullset doesn't know yet, only that barcode is sent to Open Food Facts, a public food database. Food search uses a list built into the app.</p>
+    <p>When you scan a barcode Fullset doesn't know yet, only that barcode is sent to Open Food Facts, a public food database. Food search uses a list built into the app. In Spanish, <strong>Search all foods</strong> also sends the words you typed, and nothing else, to Open Food Facts.</p>
     <h2>The waitlist</h2>
     <p>If you join the waitlist on thefullsetapp.com, we keep your email address only to send you one email when Fullset opens to everyone. To stop spam sign-ups we keep a scrambled (one-way hashed) version of your network address, never the address itself. To be removed, email <a href="mailto:support@thefullsetapp.com">support@thefullsetapp.com</a> and we delete your entry within 7 days.</p>
     <h2>Who processes data for us</h2>
-    <p>Google Firebase (accounts, cloud backup, app integrity checks) · Google Vertex AI (meal photos) · Sentry (crash reports) · RevenueCat (subscription status) · Resend (account emails) · Open Food Facts (barcodes only) · Apple and Google (sign-in, purchases). Each processes data only to provide its part of the service, and none may use it for advertising.</p>
+    <p>Google Firebase (accounts, cloud backup, app integrity checks) · Google Vertex AI (meal photos) · Sentry (crash reports) · Google Analytics for Firebase (usage counts, if you allow them) · RevenueCat (subscription status) · Resend (account emails) · Open Food Facts (barcodes, and Spanish food searches) · Apple and Google (sign-in, purchases). Each processes data only to provide its part of the service, and none may use it for advertising.</p>
     <h2>How long we keep it</h2>
-    <p>Your data stays in your cloud backup while you have an account. Crash reports are kept for up to 90 days, then deleted. Resend keeps a delivery record of each account email it sends (your address, the subject and whether it arrived) for up to 30 days.</p>
+    <p>Your data stays in your cloud backup while you have an account. Crash reports are kept for up to 90 days, then deleted. Usage counts are kept by Google for 14 months. Resend keeps a delivery record of each account email it sends (your address, the subject and whether it arrived) for up to 30 days.</p>
     <h2>Your choices</h2>
     <ul>
       <li><strong>Export</strong> your workouts and weigh-ins at any time: Me → Settings → Export.</li>
       <li><strong>Delete your account</strong> in the app: Me → Settings → Account → Delete account. Your account and everything in our live cloud service is deleted at once, including coach links and assigned plans, your subscription record at RevenueCat is deleted, and the log on your phone is cleared. Copies in our encrypted backups expire within 14 weeks. If you were a coach, the plans you already assigned stay in your clients' accounts as theirs, shown as from "Your former coach", without your name. Deleting your account doesn't cancel a Pro subscription; cancel it first in your Apple or Google account settings.</li>
       <li>Can't sign in? Email <a href="mailto:support@thefullsetapp.com">support@thefullsetapp.com</a> from your account's address and we delete the account within 7 days (details: <a href="/support#delete-account">thefullsetapp.com/support#delete-account</a>). You can also ask us there for a copy or correction of your data.</li>
-      <li>Turn off crash reports in Me → Settings, and camera or photo access in your phone's settings.</li>
+      <li>Turn off crash reports and usage data in Me → Settings → Privacy, and camera or photo access in your phone's settings.</li>
     </ul>
     <h2>Security</h2>
     <p>Data travels encrypted (HTTPS) and is encrypted at rest by Google. Only you, and a coach you accept, can read your log. The app checks that requests come from the real Fullset app.</p>
