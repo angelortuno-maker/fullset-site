@@ -100,14 +100,6 @@ p { margin: 0 0 16px; }
 .shot { width: min(220px, 44vw); max-width: 100%; height: auto; border-radius: 28px; box-shadow: 0 24px 60px rgba(22, 20, 18, 0.18); background: var(--card); }
 @media (min-width: 1024px) { .shot { width: 260px; } }
 .shot + .shot { margin-left: -60px; margin-top: 48px; transform: rotate(-6deg); }
-/* Change 285 R3: the hero's third frame (Coach), from 1024 px up; on phones the hero keeps two. */
-.shot--wide { display: none; }
-@media (min-width: 1024px) {
-  /* Three frames, two 56 px overlaps, and room for the turned third one inside the column. */
-  .shots .shot { width: min(210px, calc((100% + 112px) / 3 - 16px)); }
-  .shots .shot + .shot { margin-left: -56px; }
-  .shots .shot--wide { display: block; margin-top: 0; transform: rotate(6deg); }
-}
 
 /* Bands and cards */
 .on-ink { background: var(--ink); color: var(--on-dark); }
