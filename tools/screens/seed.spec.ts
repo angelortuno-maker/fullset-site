@@ -1,8 +1,10 @@
-// Change 285: the demo seed behind the home page's phone frames. One person, "Alex", on the app's QA web export,
+// Change 285 (MSG-5824: re-shot from release/2.0.2 59cc3d61, light, Today on a planned Push day, and every frame
+// passes ready(), so a loading skeleton or an empty state can't ship again): the demo seed behind the site's phone
+// frames. One person, "Alex", on the app's QA web export,
 // signed in on the Firebase emulators (a demo-* project: nothing real is reachable). The seed goes in through the
 // app's own screens, with the app's L2 harness (qa/web/harness.ts): a Push / Pull / Legs split, a nutrition goal,
-// two weeks of workouts with rising weights, and Thursday's breakfast and lunch. Then Today, Eat and Progress at
-// 390×844 @2x, dark, in English, then in Spanish (Me → Settings → Language). The second test is the coach's side (R3,
+// two weeks of workouts with rising weights (Legs last, so Thursday is a Push day), and Thursday's three meals. Then
+// Today, Eat and Progress at 390×844 @2x, light, in English, then in Spanish (Me → Settings → Language). The second test is the coach's side (R3,
 // the Architect, #597 Oct 19 17:28 and 17:40): a coach's client page for Alex, with goals and an assigned week.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -41,15 +43,69 @@ const phoneBar = (p: any) =>
 let n = 0;
 const snap = async (p: any, name: string) => p.screenshot({ path: `${OUT}/${String(++n).padStart(2, '0')}-${name}.png` });
 
-// Two weeks of Push, Pull, Legs, the weights up a little each time.
+/** The words a loading state shows, in English and Spanish (the app's *.loading keys and the Skeleton's label). */
+const LOADING = /^(Loading|Cargando)\b|^…$/i;
+/** Each frame's own content: what an empty or half-loaded screen lacks. */
+const CONTENT: Record<string, (p: any) => Promise<void>> = {
+  // Today's type is set (the planned day), and the week strip carries this week's training dots.
+  today: async (p) => {
+    await expect(p.getByTestId('page-today').getByRole('button', { name: /^(Today's type|Tipo de hoy), / })).toBeVisible();
+    expect(await p.locator('[data-testid^="marks-"] > div').count()).toBeGreaterThan(0);
+  },
+  // Thursday's three meals are in the day.
+  eat: async (p) => {
+    const day = p.getByTestId('eat-timeline');
+    for (const food of [/Oats/, /Greek yogurt/, /Chicken breast/]) await expect(day).toContainText(food);
+  },
+  // Records list at least one lift.
+  progress: async (p) => {
+    expect(await p.getByTestId('records').getByRole('button').count()).toBeGreaterThan(0);
+  },
+  // The client's goals are filled in, and the week holds the five assigned days.
+  coach: async (p) => {
+    await expect(p.getByTestId('goal-sessions')).toHaveAttribute('aria-label', /5/);
+    expect(await p.locator('[data-testid^="week-"][aria-label*="ssign"], [data-testid^="week-"][aria-label*="signado"]').count()).toBeGreaterThanOrEqual(5);
+  },
+};
+/**
+ * MSG-5824: a frame is taken only when nothing on screen is loading (no Skeleton, no progress spinner, no "Loading…"
+ * or bare "…" label) and the frame's own content is there. Otherwise the run fails, with a shot of what it saw.
+ */
+async function ready(p: any, frame: keyof typeof CONTENT) {
+  await expect
+    .poll(
+      () =>
+        p.evaluate((source: string) => {
+          const loading = new RegExp(source, 'i');
+          const shown = (el: Element) => {
+            const r = (el as HTMLElement).getBoundingClientRect();
+            return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < window.innerHeight;
+          };
+          return [...document.querySelectorAll('[role="progressbar"], [aria-busy="true"], [aria-label]')].filter(
+            (el) => shown(el) && (el.getAttribute('role') === 'progressbar' || el.getAttribute('aria-busy') === 'true' || loading.test((el.getAttribute('aria-label') ?? '').trim())),
+          ).length;
+        }, LOADING.source),
+      { timeout: 20_000, message: `${frame}: still loading` },
+    )
+    .toBe(0);
+  await CONTENT[frame](p);
+}
+/** A frame: ready, then the shot, then the size the site allows (250 KB). */
+async function frame(p: any, name: string, kind: keyof typeof CONTENT) {
+  await ready(p, kind);
+  const file = `${OUT}/${name}.png`;
+  await p.screenshot({ path: file });
+  expect(fs.statSync(file).size, `${name}.png is over 250 KB`).toBeLessThanOrEqual(250 * 1024);
+}
+
+// Two weeks of Push, Pull, Legs, the weights up a little each time; Legs last, so Thursday's planned day is Push.
 const WORKOUTS: { day: string; type: 'Push' | 'Pull' | 'Legs'; base: number }[] = [
   { day: '2026-10-05', type: 'Push', base: 135 },
   { day: '2026-10-06', type: 'Pull', base: 115 },
   { day: '2026-10-07', type: 'Legs', base: 185 },
   { day: '2026-10-09', type: 'Push', base: 140 },
   { day: '2026-10-12', type: 'Pull', base: 120 },
-  { day: '2026-10-13', type: 'Legs', base: 195 },
-  { day: '2026-10-14', type: 'Push', base: 145 },
+  { day: '2026-10-14', type: 'Legs', base: 195 },
 ];
 
 test('285 demo seed and frames', async ({ qa }: any) => {
@@ -135,7 +191,7 @@ test('285 demo seed and frames', async ({ qa }: any) => {
         await p.waitForTimeout(1500);
         await phoneBar(p);
         await p.waitForTimeout(300);
-        await p.screenshot({ path: `${OUT}/frame-${lang}-${tab}.png` });
+        await frame(p, `frame-${lang}-${tab}`, tab);
       }
       await openTab(p, 'eat');
       await p.getByTestId('eat-timeline').scrollIntoViewIfNeeded();
@@ -149,7 +205,7 @@ test('285 demo seed and frames', async ({ qa }: any) => {
 });
 
 // The coach's side: a coach linked to Alex sets the goals and assigns Tuesday to Saturday of this week, then the
-// client page (Coach → Alex) at 390×844 @2x, dark, in English and in Spanish. The coach's invite is checked against
+// client page (Coach → Alex) at 390×844 @2x, light, in English and in Spanish. The coach's invite is checked against
 // the real date (MSG-5537), so the seed's day is the journeys' day, and the week is the one it falls in.
 const WEEK: [number, string][] = [[1, 'Push'], [2, 'Pull'], [3, 'Legs'], [4, 'Rest'], [5, 'Full body']];
 
@@ -198,7 +254,9 @@ test('285 coach frame', async ({ qa }: any) => {
       await c.getByRole('button', { name: /^Alex, / }).click();
       await expect(c.getByTestId('client-week')).toBeVisible();
       await c.waitForTimeout(1500);
-      await c.screenshot({ path: `${OUT}/frame-${lang}-coach.png` });
+      // The frame shipped on Oct 19 was this page still loading (MSG-5824 item 1): ready() refuses that now.
+      await phoneBar(c);
+      await frame(c, `frame-${lang}-coach`, 'coach');
     }
   } catch (e) {
     await snap(c, 'FAILED-coach');
