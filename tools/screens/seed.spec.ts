@@ -3,7 +3,7 @@
 // frames. One person, "Alex", on the app's QA web export,
 // signed in on the Firebase emulators (a demo-* project: nothing real is reachable). The seed goes in through the
 // app's own screens, with the app's L2 harness (qa/web/harness.ts): a Push / Pull / Legs split, a nutrition goal,
-// two weeks of workouts with rising weights (Legs last, so Thursday is a Push day), and Thursday's three meals. Then
+// two weeks of workouts with rising weights (Legs last, so Thursday is a Push day), and Thursday's breakfast, lunch and dinner. Then
 // Today, Eat and Progress at 390×844 @2x, light, in English, then in Spanish (Me → Settings → Language). The second test is the coach's side (R3,
 // the Architect, #597 Oct 19 17:28 and 17:40): a coach's client page for Alex, with goals and an assigned week.
 import fs from 'node:fs';
@@ -15,11 +15,11 @@ const { addDays, expect, journeyDay, openTab, test } = require(path.join(process
 
 const OUT = process.env.SHOTS_DIR!;
 const DAY = '2026-10-15'; // a Thursday
-// Breakfast, a snack and lunch: [search, the food picked (its name starts so), grams].
+// Breakfast, lunch and dinner (MSG-5824: three meals): [search, the food picked (its name starts so), grams].
 const MEALS: { at: string; foods: [string, string, number][] }[] = [
   { at: '07:45', foods: [['Oats', 'Oats, dry', 60], ['Banana', 'Banana', 120], ['Egg', 'Egg, scrambled', 150]] },
-  { at: '10:15', foods: [['Greek yogurt', 'Greek yogurt, low fat', 200]] },
   { at: '12:30', foods: [['Chicken breast', 'Chicken breast, (cooked|roasted|grilled)', 200], ['White rice', 'White rice, cooked', 250], ['Broccoli', 'Broccoli, cooked', 100]] },
+  { at: '18:45', foods: [['Salmon', 'Salmon, cooked', 180], ['Sweet potato', 'Sweet potato, cooked', 200], ['Avocado', 'Avocado', 70]] },
 ];
 // The app's home (Today), as a fresh open: stacked screens (the goal, Settings) have no tab bar.
 const home = async (p: any) => {
@@ -40,6 +40,14 @@ const phoneBar = (p: any) =>
       if (el.children.length === 0 && el.innerText.trim()) Object.assign(el.style, { overflow: 'visible', height: 'auto', lineHeight: '14px' });
     });
   });
+// MSG-5824: the frames are light. The app follows its own Appearance setting, not only the browser's scheme.
+const light = async (p: any) => {
+  await openTab(p, 'me');
+  await p.getByRole('button', { name: 'Settings', exact: true }).click();
+  await p.getByRole('radio', { name: 'Light', exact: true }).click();
+  await expect(p.getByRole('radio', { name: 'Light', exact: true })).toHaveAttribute('aria-checked', 'true');
+  await home(p);
+};
 let n = 0;
 const snap = async (p: any, name: string) => p.screenshot({ path: `${OUT}/${String(++n).padStart(2, '0')}-${name}.png` });
 
@@ -52,14 +60,14 @@ const CONTENT: Record<string, (p: any) => Promise<void>> = {
     await expect(p.getByTestId('page-today').getByRole('button', { name: /^(Today's type|Tipo de hoy), / })).toBeVisible();
     expect(await p.locator('[data-testid^="marks-"] > div').count()).toBeGreaterThan(0);
   },
-  // Thursday's three meals are in the day.
+  // Thursday's three meals (breakfast, lunch, dinner) are in the day.
   eat: async (p) => {
     const day = p.getByTestId('eat-timeline');
-    for (const food of [/Oats/, /Greek yogurt/, /Chicken breast/]) await expect(day).toContainText(food);
+    for (const food of [/Oats/, /Chicken breast/, /Salmon/]) await expect(day).toContainText(food);
   },
-  // Records list at least one lift.
+  // Records list at least one lift (each row reads "<exercise>: PR <set>, <date>" in both languages).
   progress: async (p) => {
-    expect(await p.getByTestId('records').getByRole('button').count()).toBeGreaterThan(0);
+    expect(await p.getByRole('button', { name: /: PR .+, / }).count()).toBeGreaterThan(0);
   },
   // The client's goals are filled in, and the week holds the five assigned days.
   coach: async (p) => {
@@ -115,6 +123,7 @@ test('285 demo seed and frames', async ({ qa }: any) => {
   const p = me.page;
   const today = p.getByTestId('page-today');
   try {
+    await light(p);
     // The split, from Today's "Set up your week".
     await today.getByRole('button', { name: 'Set up your week', exact: true }).click();
     await p.getByRole('radio', { name: 'Push / Pull / Legs', exact: true }).click();
@@ -177,8 +186,8 @@ test('285 demo seed and frames', async ({ qa }: any) => {
       }
     }
 
-    // The frames, at 12:45 on Thursday, in English and then in Spanish.
-    await qa.atCT(`${DAY} 12:45`);
+    // The frames, at 19:30 on Thursday (after dinner), in English and then in Spanish.
+    await qa.atCT(`${DAY} 19:30`);
     for (const lang of ['en', 'es'] as const) {
       if (lang === 'es') {
         await openTab(p, 'me');
@@ -196,6 +205,15 @@ test('285 demo seed and frames', async ({ qa }: any) => {
       await openTab(p, 'eat');
       await p.getByTestId('eat-timeline').scrollIntoViewIfNeeded();
       await p.screenshot({ path: `${OUT}/check-${lang}-eat-timeline.png` });
+      // A second Eat candidate: scrolled to the action row, with the meals under it.
+      await home(p);
+      await openTab(p, 'eat');
+      await p.waitForTimeout(1500);
+      await p.getByRole('button', { name: /^\+ (Add food|Agregar)/ }).first().evaluate((el: Element) => el.scrollIntoView({ block: 'start' }));
+      await p.mouse.wheel(0, -120);
+      await p.waitForTimeout(800);
+      await phoneBar(p);
+      await frame(p, `alt-${lang}-eat`, 'eat');
     }
   } catch (e) {
     await snap(p, 'FAILED');
@@ -221,6 +239,7 @@ test('285 coach frame', async ({ qa }: any) => {
   try {
     await home(c);
     await home(me.page);
+    await light(c);
     await qa.link(coach, me);
     await c.getByRole('button', { name: /^Alex, Client since / }).click();
     await c.getByTestId('client-goals').getByRole('button', { name: 'Edit goals', exact: true }).click();
