@@ -3,11 +3,12 @@
 // `data-store-fallback` ("Get the app") shows until one of the buttons has a link (334).
 (function () {
   var LINKS = {
-    // The App Store page (the official badge, MSG-5951 W3). App Store ID 6818055502 (eas.json); set the link the day
-    // its page opens in the US (apps.apple.com/us/app/id6818055502 was a 404 on Nov 7). This one line shows the badge.
+    // The App Store page (the official badge, MSG-5951 W3): the link Angel copies from the App Store app (the Architect,
+    // #597 6718723294; 2.0.0 is public). This one line shows the badge.
     apple: '',
-    // "Join the Android test": the Play closed test's opt-in link (MSG-5951 W3, amending MSG-5711), until Play
-    // production, then the Play Store listing (WL1). Confirmed in MSG-5952.
+    // "Join the Android test": the Play closed test's opt-in link (MSG-5951 W3, MSG-5952), until Play production, then
+    // the Play Store listing and its badge (WL1). This replaces Oct 19's "never a test track's join link": a non-tester
+    // can't join, but the button says it's a test (the Architect, #597 6718723294).
     android: 'https://play.google.com/apps/testing/com.fullset.app',
   };
   // MSG-5951 W9: the coach web (app.thefullsetapp.com). Empty keeps "Coach login" and the /coaches dashboard button
