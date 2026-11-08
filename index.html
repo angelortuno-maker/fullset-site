@@ -29,6 +29,7 @@
       <a href="./#features">Features</a>
       <a href="coaches/">Coaches</a>
       <a href="support/">Support</a>
+      <a data-coach-web hidden href="#">Coach login</a>
       <a class="pill pill--secondary pill--nav lang" href="/es" hreflang="es" lang="es" aria-label="Cambiar a español"><span class="lang__long">Español</span><span class="lang__short">ES</span></a>
       <a class="pill pill--primary pill--nav" href="./#get">Get the app</a>
     </nav>
@@ -42,17 +43,17 @@
       <div>
         <h1>Log every set.<br>Eat on plan.<br>Bring your coach.</h1>
         <p class="lede" style="margin-top:24px">Fullset is the gym app that works with no signal, logs your workouts and meals in seconds, and lets a coach plan your week and see your progress. iPhone and Android.</p>
-        <!-- The store links come from store-links.js (change 285); with none, a button stays on #get. -->
+        <!-- The store links come from store-links.js (change 285); with none, a button stays hidden (MSG-5951). -->
         <div class="actions">
-          <a class="store" data-store="apple" href="#get"><span class="store__logo store__logo--apple" aria-hidden="true"></span><span class="store__text"><small>Download for</small>iPhone</span></a>
-          <a class="store" data-store="android" href="#get"><span class="store__logo store__logo--android" aria-hidden="true"></span><span class="store__text"><small>Download for</small>Android</span></a>
+          <a class="badge" data-store="apple" data-hide-empty hidden href="#get"><img src="img/app-store-badge.svg" width="168" height="56" alt="Download on the App Store"></a>
+          <a class="store" data-store="android" data-hide-empty hidden href="#get"><span class="store__logo store__logo--android" aria-hidden="true"></span><span class="store__text">Join the Android test</span></a>
         </div>
         <p class="small">Free to start · Pro trial included · Spanish and English</p>
       </div>
       <div class="shots">
         <img class="shot" src="img/today.png" width="390" height="844" alt="Fullset: Today, with the week strip, today's Push day and the food left for the day" decoding="async">
         <img class="shot" src="img/eat.png" width="390" height="844" alt="Fullset: Eat, with the calories left against the goal and protein, carbs and fat" decoding="async">
-        <img class="shot shot--wide" src="img/coach.png" width="390" height="844" alt="Fullset for coaches: a client's page, with their goals and the days assigned this week" loading="lazy" decoding="async">
+        <img class="shot shot--third" src="img/coach.png" width="390" height="844" alt="Fullset for coaches: a client's page, with their goals and the days assigned this week" decoding="async">
       </div>
     </section>
 
@@ -93,19 +94,9 @@
       <h2>Get Fullset</h2>
       <p class="lede" style="margin-top:20px">Free to start · Pro trial included · Spanish and English</p>
       <div class="actions">
-        <a class="store" data-store="apple" href="#get"><span class="store__logo store__logo--apple" aria-hidden="true"></span><span class="store__text"><small>Download for</small>iPhone</span></a>
-        <a class="store" data-store="android" href="#get"><span class="store__logo store__logo--android" aria-hidden="true"></span><span class="store__text"><small>Download for</small>Android</span></a>
+        <a class="badge" data-store="apple" data-hide-empty hidden href="#get"><img src="img/app-store-badge.svg" width="168" height="56" alt="Download on the App Store"></a>
+        <a class="store" data-store="android" data-hide-empty hidden href="#get"><span class="store__logo store__logo--android" aria-hidden="true"></span><span class="store__text">Join the Android test</span></a>
       </div>
-      <!-- The waitlist posts to change 217's joinWaitlist (waitlist.js, byte for byte the app repo's tested fixture). -->
-      <p class="lede" style="margin-top:28px">Tell me what's new</p>
-      <form class="waitlist" id="waitlist" action="#" method="post" novalidate>
-        <label class="skip" for="waitlist-email">Email</label>
-        <input id="waitlist-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required>
-        <button class="pill pill--secondary" type="submit">Tell me</button>
-        <p class="waitlist__done small" id="waitlist-done" role="status" aria-live="polite"></p>
-      </form>
-      <!-- The privacy page's promise (#5): one email when Fullset opens to everyone (MSG-5646 item 4). -->
-      <p class="small" id="waitlist-note">One email when Fullset opens to everyone. No spam.</p>
     </section>
   </main>
   <footer class="footer">
@@ -119,6 +110,5 @@
     </div>
   </footer>
   <script src="store-links.js" defer></script>
-  <script src="waitlist.js" defer></script>
 </body>
 </html>

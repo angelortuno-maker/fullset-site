@@ -63,8 +63,13 @@ p { margin: 0 0 16px; }
 .pill--hero { min-height: 56px; padding: 0 28px; border-radius: 28px; font-size: 17px; }
 .pill--nav { min-height: 40px; padding: 0 20px; border-radius: 20px; font-size: 15px; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 16px; }
-/* Change 285: the store buttons. Plain logos until the store release (the brand rules: official badges then). */
-.store { display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 24px 8px 20px; border-radius: 28px; background: var(--ink); color: var(--volt); text-decoration: none; text-align: left; transition: opacity .15s; }
+/* MSG-5951 W3: the iPhone button is Apple's official badge (unchanged artwork, at least 40 px tall); "Join the Android
+   test" keeps our own button until Play production (WL1). */
+.badge { display: inline-flex; border-radius: 9px; }
+.badge img { display: block; width: auto; height: 56px; }
+.badge:hover { opacity: .85; }
+/* Change 285: the store buttons, our own style. */
+.store { display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 24px 8px 20px; border-radius: 12px; background: var(--ink); color: var(--volt); text-decoration: none; text-align: left; transition: opacity .15s; }
 .store:hover { opacity: .85; }
 .store__logo { flex: none; width: 24px; height: 24px; background: currentColor; -webkit-mask: var(--logo) center / contain no-repeat; mask: var(--logo) center / contain no-repeat; }
 .store__logo--apple { --logo: url(img/apple.svg); }
@@ -100,13 +105,16 @@ p { margin: 0 0 16px; }
 .shot { width: min(220px, 44vw); max-width: 100%; height: auto; border-radius: 28px; box-shadow: 0 24px 60px rgba(22, 20, 18, 0.18); background: var(--card); }
 @media (min-width: 1024px) { .shot { width: 260px; } }
 .shot + .shot { margin-left: -60px; margin-top: 48px; transform: rotate(-6deg); }
-/* Change 285 R3: the hero's third frame (Coach), from 1024 px up; on phones the hero keeps two. */
-.shot--wide { display: none; }
+/* MSG-5951 W1: the hero's third frame (Coach) shows at every width; on phones the three frames get smaller and overlap. */
+.shots .shot { flex: 0 0 auto; width: min(200px, calc((100% + 64px) / 3 - 10px)); }
+@media (max-width: 1023px) { .shots { min-height: 0; padding-block: 24px; } }
+.shots .shot + .shot { margin-left: -32px; }
+.shots .shot--third { margin-top: 0; transform: rotate(6deg); }
+.shots .shot:only-child { width: min(260px, 64vw); margin: 0; transform: none; }
 @media (min-width: 1024px) {
   /* Three frames, two 56 px overlaps, and room for the turned third one inside the column. */
   .shots .shot { width: min(210px, calc((100% + 112px) / 3 - 16px)); }
   .shots .shot + .shot { margin-left: -56px; }
-  .shots .shot--wide { display: block; margin-top: 0; transform: rotate(6deg); }
 }
 
 /* Bands and cards */
