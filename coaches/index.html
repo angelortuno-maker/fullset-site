@@ -29,6 +29,7 @@
       <a href="../#features">Features</a>
       <a href="../coaches/">Coaches</a>
       <a href="../support/">Support</a>
+      <a data-coach-web hidden href="#">Coach login</a>
       <a class="pill pill--secondary pill--nav lang" href="/es/coaches" hreflang="es" lang="es" aria-label="Cambiar a español"><span class="lang__long">Español</span><span class="lang__short">ES</span></a>
       <a class="pill pill--primary pill--nav" href="../#get">Get the app</a>
     </nav>
@@ -38,7 +39,7 @@
     </div>
   </header>
   <main id="main">
-    <section class="wrap hero" style="grid-template-columns:1fr">
+    <section class="wrap hero">
       <div>
         <p class="eyebrow">For coaches</p>
         <h1>One app for you<br>and your clients.</h1>
@@ -46,12 +47,14 @@
         <!-- Change 334 (MSG-5710): the hero's main action is getting the app. Each store button stays hidden while its link in
              store-links.js is empty (data-hide-empty, MSG-5711); until one has a link, "Get the app" goes to the home page's #get. -->
         <div class="actions" role="group" aria-label="Get the app">
-          <a class="store" data-store="android" data-hide-empty hidden href="../#get"><span class="store__logo store__logo--android" aria-hidden="true"></span><span class="store__text"><small>Download for</small>Android</span></a>
-          <a class="store" data-store="apple" data-hide-empty hidden href="../#get"><span class="store__logo store__logo--apple" aria-hidden="true"></span><span class="store__text"><small>Download for</small>iPhone</span></a>
+          <a class="store" data-store="android" data-hide-empty hidden href="../#get"><span class="store__logo store__logo--android" aria-hidden="true"></span><span class="store__text">Join the Android test</span></a>
+          <a class="badge" data-store="apple" data-hide-empty hidden href="../#get"><img src="../img/app-store-badge.svg" width="168" height="56" alt="Download on the App Store"></a>
           <a class="pill pill--primary pill--hero" data-store-fallback href="/#get">Get the app</a>
+          <a class="pill pill--secondary pill--hero" data-coach-web hidden href="#">Open the coach dashboard</a>
           <a class="pill pill--secondary pill--hero" href="#how">Start coaching</a>
         </div>
       </div>
+      <div class="shots"><img class="shot" src="../img/coach.png" width="390" height="844" alt="Fullset for coaches: a client's page, with their goals and the days assigned this week" decoding="async"></div>
     </section>
 
     <section class="on-ink section" id="how">

@@ -29,6 +29,7 @@
       <a href="/es#features">Funciones</a>
       <a href="/es/coaches">Entrenadores</a>
       <a href="/es/support">Ayuda</a>
+      <a data-coach-web hidden href="#">Acceso coaches</a>
       <a class="pill pill--secondary pill--nav lang" href="/coaches" hreflang="en" lang="en" aria-label="Switch to English"><span class="lang__long">English</span><span class="lang__short">EN</span></a>
       <a class="pill pill--primary pill--nav" href="/es#get">Consigue la app</a>
     </nav>
@@ -38,7 +39,7 @@
     </div>
   </header>
     <main id="main">
-    <section class="wrap hero" style="grid-template-columns:1fr">
+    <section class="wrap hero">
       <div>
         <p class="eyebrow">Para coaches</p>
         <h1>Una app para ti<br>y tus clientes.</h1>
@@ -46,12 +47,14 @@
         <!-- Change 334 (MSG-5710): the hero's main action is getting the app. Each store button stays hidden while its link in
              store-links.js is empty (data-hide-empty, MSG-5711); until one has a link, "Get the app" goes to the home page's #get. -->
         <div class="actions" role="group" aria-label="Descarga la app">
-          <a class="store" data-store="android" data-hide-empty hidden href="/es#get"><span class="store__logo store__logo--android" aria-hidden="true"></span><span class="store__text"><small>Descargar para</small>Android</span></a>
-          <a class="store" data-store="apple" data-hide-empty hidden href="/es#get"><span class="store__logo store__logo--apple" aria-hidden="true"></span><span class="store__text"><small>Descargar para</small>iPhone</span></a>
+          <a class="store" data-store="android" data-hide-empty hidden href="/es#get"><span class="store__logo store__logo--android" aria-hidden="true"></span><span class="store__text">Únete a la prueba de Android</span></a>
+          <a class="badge" data-store="apple" data-hide-empty hidden href="/es#get"><img src="/img/app-store-badge.svg" width="168" height="56" alt="Descárgalo en el App Store"></a>
           <a class="pill pill--primary pill--hero" data-store-fallback href="/es#get">Consigue la app</a>
+          <a class="pill pill--secondary pill--hero" data-coach-web hidden href="#">Abrir el panel del coach</a>
           <a class="pill pill--secondary pill--hero" href="#how">Empieza a entrenar clientes</a>
         </div>
       </div>
+      <div class="shots"><img class="shot" src="/img/es/coach.png" width="390" height="844" alt="Fullset para coaches: la página de un cliente, con sus metas y los días asignados esta semana" decoding="async"></div>
     </section>
 
     <section class="on-ink section" id="how">

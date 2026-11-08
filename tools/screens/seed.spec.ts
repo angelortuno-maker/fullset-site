@@ -1,8 +1,10 @@
-// Change 285: the demo seed behind the home page's phone frames. One person, "Alex", on the app's QA web export,
+// Change 285 (MSG-5824: re-shot from release/2.0.2 59cc3d61, light, Today on a planned Push day, and every frame
+// passes ready(), so a loading skeleton or an empty state can't ship again): the demo seed behind the site's phone
+// frames. One person, "Alex", on the app's QA web export,
 // signed in on the Firebase emulators (a demo-* project: nothing real is reachable). The seed goes in through the
 // app's own screens, with the app's L2 harness (qa/web/harness.ts): a Push / Pull / Legs split, a nutrition goal,
-// two weeks of workouts with rising weights, and Thursday's breakfast and lunch. Then Today, Eat and Progress at
-// 390×844 @2x, dark, in English, then in Spanish (Me → Settings → Language). The second test is the coach's side (R3,
+// two weeks of workouts with rising weights (Legs last, so Thursday is a Push day), and Thursday's breakfast, lunch and dinner. Then
+// Today, Eat and Progress at 390×844 @2x, light, in English, then in Spanish (Me → Settings → Language). The second test is the coach's side (R3,
 // the Architect, #597 Oct 19 17:28 and 17:40): a coach's client page for Alex, with goals and an assigned week.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -13,11 +15,11 @@ const { addDays, expect, journeyDay, openTab, test } = require(path.join(process
 
 const OUT = process.env.SHOTS_DIR!;
 const DAY = '2026-10-15'; // a Thursday
-// Breakfast, a snack and lunch: [search, the food picked (its name starts so), grams].
+// Breakfast, lunch and dinner (MSG-5824: three meals): [search, the food picked (its name starts so), grams].
 const MEALS: { at: string; foods: [string, string, number][] }[] = [
   { at: '07:45', foods: [['Oats', 'Oats, dry', 60], ['Banana', 'Banana', 120], ['Egg', 'Egg, scrambled', 150]] },
-  { at: '10:15', foods: [['Greek yogurt', 'Greek yogurt, low fat', 200]] },
   { at: '12:30', foods: [['Chicken breast', 'Chicken breast, (cooked|roasted|grilled)', 200], ['White rice', 'White rice, cooked', 250], ['Broccoli', 'Broccoli, cooked', 100]] },
+  { at: '18:45', foods: [['Salmon', 'Salmon, cooked', 180], ['Sweet potato', 'Sweet potato, cooked', 200], ['Avocado', 'Avocado', 70]] },
 ];
 // The app's home (Today), as a fresh open: stacked screens (the goal, Settings) have no tab bar.
 const home = async (p: any) => {
@@ -38,18 +40,80 @@ const phoneBar = (p: any) =>
       if (el.children.length === 0 && el.innerText.trim()) Object.assign(el.style, { overflow: 'visible', height: 'auto', lineHeight: '14px' });
     });
   });
+// MSG-5824: the frames are light. The app follows its own Appearance setting, not only the browser's scheme.
+const light = async (p: any) => {
+  await openTab(p, 'me');
+  await p.getByRole('button', { name: 'Settings', exact: true }).click();
+  await p.getByRole('radio', { name: 'Light', exact: true }).click();
+  await expect(p.getByRole('radio', { name: 'Light', exact: true })).toHaveAttribute('aria-checked', 'true');
+  await home(p);
+};
 let n = 0;
 const snap = async (p: any, name: string) => p.screenshot({ path: `${OUT}/${String(++n).padStart(2, '0')}-${name}.png` });
 
-// Two weeks of Push, Pull, Legs, the weights up a little each time.
+/** The words a loading state shows, in English and Spanish (the app's *.loading keys and the Skeleton's label). */
+const LOADING = /^(Loading|Cargando)\b|^…$/i;
+/** Each frame's own content: what an empty or half-loaded screen lacks. */
+const CONTENT: Record<string, (p: any) => Promise<void>> = {
+  // Today's type is set (the planned day), and the week strip carries this week's training dots.
+  today: async (p) => {
+    await expect(p.getByTestId('page-today').getByRole('button', { name: /^(Today's type|Tipo de hoy), / })).toBeVisible();
+    expect(await p.locator('[data-testid^="marks-"] > div').count()).toBeGreaterThan(0);
+  },
+  // Thursday's three meals (breakfast, lunch, dinner) are in the day.
+  eat: async (p) => {
+    const day = p.getByTestId('eat-timeline');
+    for (const food of [/Oats/, /Chicken breast/, /Salmon/]) await expect(day).toContainText(food);
+  },
+  // Records list at least one lift (each row reads "<exercise>: PR <set>, <date>" in both languages).
+  progress: async (p) => {
+    expect(await p.getByRole('button', { name: /: PR .+, / }).count()).toBeGreaterThan(0);
+  },
+  // The client's goals are filled in, and the week holds the five assigned days.
+  coach: async (p) => {
+    await expect(p.getByTestId('goal-sessions')).toHaveAttribute('aria-label', /5/);
+    expect(await p.locator('[data-testid^="week-"][aria-label*="ssign"], [data-testid^="week-"][aria-label*="signado"]').count()).toBeGreaterThanOrEqual(5);
+  },
+};
+/**
+ * MSG-5824: a frame is taken only when nothing on screen is loading (no Skeleton, no progress spinner, no "Loading…"
+ * or bare "…" label) and the frame's own content is there. Otherwise the run fails, with a shot of what it saw.
+ */
+async function ready(p: any, frame: keyof typeof CONTENT) {
+  await expect
+    .poll(
+      () =>
+        p.evaluate((source: string) => {
+          const loading = new RegExp(source, 'i');
+          const shown = (el: Element) => {
+            const r = (el as HTMLElement).getBoundingClientRect();
+            return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < window.innerHeight;
+          };
+          return [...document.querySelectorAll('[role="progressbar"], [aria-busy="true"], [aria-label]')].filter(
+            (el) => shown(el) && (el.getAttribute('role') === 'progressbar' || el.getAttribute('aria-busy') === 'true' || loading.test((el.getAttribute('aria-label') ?? '').trim())),
+          ).length;
+        }, LOADING.source),
+      { timeout: 20_000, message: `${frame}: still loading` },
+    )
+    .toBe(0);
+  await CONTENT[frame](p);
+}
+/** A frame: ready, then the shot, then the size the site allows (250 KB). */
+async function frame(p: any, name: string, kind: keyof typeof CONTENT) {
+  await ready(p, kind);
+  const file = `${OUT}/${name}.png`;
+  await p.screenshot({ path: file });
+  expect(fs.statSync(file).size, `${name}.png is over 250 KB`).toBeLessThanOrEqual(250 * 1024);
+}
+
+// Two weeks of Push, Pull, Legs, the weights up a little each time; Legs last, so Thursday's planned day is Push.
 const WORKOUTS: { day: string; type: 'Push' | 'Pull' | 'Legs'; base: number }[] = [
   { day: '2026-10-05', type: 'Push', base: 135 },
   { day: '2026-10-06', type: 'Pull', base: 115 },
   { day: '2026-10-07', type: 'Legs', base: 185 },
   { day: '2026-10-09', type: 'Push', base: 140 },
   { day: '2026-10-12', type: 'Pull', base: 120 },
-  { day: '2026-10-13', type: 'Legs', base: 195 },
-  { day: '2026-10-14', type: 'Push', base: 145 },
+  { day: '2026-10-14', type: 'Legs', base: 195 },
 ];
 
 test('285 demo seed and frames', async ({ qa }: any) => {
@@ -59,6 +123,7 @@ test('285 demo seed and frames', async ({ qa }: any) => {
   const p = me.page;
   const today = p.getByTestId('page-today');
   try {
+    await light(p);
     // The split, from Today's "Set up your week".
     await today.getByRole('button', { name: 'Set up your week', exact: true }).click();
     await p.getByRole('radio', { name: 'Push / Pull / Legs', exact: true }).click();
@@ -121,8 +186,8 @@ test('285 demo seed and frames', async ({ qa }: any) => {
       }
     }
 
-    // The frames, at 12:45 on Thursday, in English and then in Spanish.
-    await qa.atCT(`${DAY} 12:45`);
+    // The frames, at 19:30 on Thursday (after dinner), in English and then in Spanish.
+    await qa.atCT(`${DAY} 19:30`);
     for (const lang of ['en', 'es'] as const) {
       if (lang === 'es') {
         await openTab(p, 'me');
@@ -135,11 +200,20 @@ test('285 demo seed and frames', async ({ qa }: any) => {
         await p.waitForTimeout(1500);
         await phoneBar(p);
         await p.waitForTimeout(300);
-        await p.screenshot({ path: `${OUT}/frame-${lang}-${tab}.png` });
+        await frame(p, `frame-${lang}-${tab}`, tab);
       }
       await openTab(p, 'eat');
       await p.getByTestId('eat-timeline').scrollIntoViewIfNeeded();
       await p.screenshot({ path: `${OUT}/check-${lang}-eat-timeline.png` });
+      // A second Eat candidate: scrolled to the action row, with the meals under it.
+      await home(p);
+      await openTab(p, 'eat');
+      await p.waitForTimeout(1500);
+      await p.getByRole('button', { name: /^\+ (Add food|Agregar)/ }).first().evaluate((el: Element) => el.scrollIntoView({ block: 'start' }));
+      await p.mouse.wheel(0, -120);
+      await p.waitForTimeout(800);
+      await phoneBar(p);
+      await frame(p, `alt-${lang}-eat`, 'eat');
     }
   } catch (e) {
     await snap(p, 'FAILED');
@@ -149,7 +223,7 @@ test('285 demo seed and frames', async ({ qa }: any) => {
 });
 
 // The coach's side: a coach linked to Alex sets the goals and assigns Tuesday to Saturday of this week, then the
-// client page (Coach → Alex) at 390×844 @2x, dark, in English and in Spanish. The coach's invite is checked against
+// client page (Coach → Alex) at 390×844 @2x, light, in English and in Spanish. The coach's invite is checked against
 // the real date (MSG-5537), so the seed's day is the journeys' day, and the week is the one it falls in.
 const WEEK: [number, string][] = [[1, 'Push'], [2, 'Pull'], [3, 'Legs'], [4, 'Rest'], [5, 'Full body']];
 
@@ -165,6 +239,7 @@ test('285 coach frame', async ({ qa }: any) => {
   try {
     await home(c);
     await home(me.page);
+    await light(c);
     await qa.link(coach, me);
     await c.getByRole('button', { name: /^Alex, Client since / }).click();
     await c.getByTestId('client-goals').getByRole('button', { name: 'Edit goals', exact: true }).click();
@@ -198,7 +273,9 @@ test('285 coach frame', async ({ qa }: any) => {
       await c.getByRole('button', { name: /^Alex, / }).click();
       await expect(c.getByTestId('client-week')).toBeVisible();
       await c.waitForTimeout(1500);
-      await c.screenshot({ path: `${OUT}/frame-${lang}-coach.png` });
+      // The frame shipped on Oct 19 was this page still loading (MSG-5824 item 1): ready() refuses that now.
+      await phoneBar(c);
+      await frame(c, `frame-${lang}-coach`, 'coach');
     }
   } catch (e) {
     await snap(c, 'FAILED-coach');

@@ -1,15 +1,19 @@
 // Change 285: the store buttons' one config. Every `a[data-store]` on the site takes its link from here; with no
-// link (or no JavaScript) a button stays on its page's #get section, or, marked `data-hide-empty`, stays hidden; and
-// `data-store-fallback` ("Get the app") shows until one of those has a link (334).
+// link (or no JavaScript) a button marked `data-hide-empty` stays hidden (no dead links, MSG-5951), and
+// `data-store-fallback` ("Get the app") shows until one of the buttons has a link (334).
 (function () {
   var LINKS = {
-    // The iPhone link (APPLE_URL in the Architect's brief). Set it the day Apple approves 2.0.0 (MSG-5711): this is the
-    // one line, and /coaches' iPhone button appears with it.
+    // The App Store page (the official badge, MSG-5951 W3): the link Angel copies from the App Store app (the Architect,
+    // #597 6718723294; 2.0.0 is public). This one line shows the badge.
     apple: '',
-    // The Play Store listing, set the day Play production goes live (MSG-5711); until then a non-tester gets a 404. Never
-    // a test track's join link: it works only for listed testers (the Architect, #597 Oct 19 22:23).
-    android: '',
+    // "Join the Android test": the Play closed test's opt-in link (MSG-5951 W3, MSG-5952), until Play production, then
+    // the Play Store listing and its badge (WL1). This replaces Oct 19's "never a test track's join link": a non-tester
+    // can't join, but the button says it's a test (the Architect, #597 6718723294).
+    android: 'https://play.google.com/apps/testing/com.fullset.app',
   };
+  // MSG-5951 W9: the coach web (app.thefullsetapp.com). Empty keeps "Coach login" and the /coaches dashboard button
+  // hidden; set it the day 327 is live in production.
+  var COACH_WEB_URL = '';
   var buttons = document.querySelectorAll('a[data-store]');
   var anyShown = false;
   for (var i = 0; i < buttons.length; i++) {
@@ -27,4 +31,11 @@
   // Change 334 (MSG-5711): "Get the app" stands in for the store buttons until one of them has a link.
   var fallbacks = document.querySelectorAll('[data-store-fallback]');
   for (var j = 0; j < fallbacks.length; j++) fallbacks[j].hidden = anyShown;
+  var coachLinks = document.querySelectorAll('a[data-coach-web]');
+  for (var k = 0; k < coachLinks.length; k++) {
+    if (COACH_WEB_URL) {
+      coachLinks[k].href = COACH_WEB_URL;
+      coachLinks[k].hidden = false;
+    }
+  }
 })();

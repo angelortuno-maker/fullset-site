@@ -11,5 +11,6 @@ export default {
   expect: { timeout: 20_000 },
   reporter: [['list']],
   use: { browserName: 'chromium', viewport: { width: 390, height: 844 }, timezoneId: 'America/Chicago', locale: 'en-US', actionTimeout: 20_000 },
-  projects: [{ name: 'dark', use: { colorScheme: 'dark' } }],
+  // MSG-5824: light, as the site.
+  projects: [{ name: 'light', use: { colorScheme: 'light' } }],
 };
