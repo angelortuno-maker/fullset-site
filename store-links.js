@@ -7,8 +7,8 @@
     // its page opens in the US (apps.apple.com/us/app/id6818055502 was a 404 on Nov 7). This one line shows the badge.
     apple: '',
     // "Join the Android test": the Play closed test's opt-in link (MSG-5951 W3, amending MSG-5711), until Play
-    // production, then the Play Store listing (WL1). Angel confirms the link before it goes here.
-    android: '',
+    // production, then the Play Store listing (WL1). Confirmed in MSG-5952.
+    android: 'https://play.google.com/apps/testing/com.fullset.app',
   };
   // MSG-5951 W9: the coach web (app.thefullsetapp.com). Empty keeps "Coach login" and the /coaches dashboard button
   // hidden; set it the day 327 is live in production.
