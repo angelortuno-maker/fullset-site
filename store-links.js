@@ -32,6 +32,9 @@
   // Change 334 (MSG-5711): "Get the app" stands in for the store buttons until one of them has a link.
   var fallbacks = document.querySelectorAll('[data-store-fallback]');
   for (var j = 0; j < fallbacks.length; j++) fallbacks[j].hidden = anyShown;
+  // MSG-6042 item 4: "iPhone: coming soon" stands beside the Android test until the App Store link is set; then the badge shows instead.
+  var soon = document.querySelectorAll('[data-store-soon]');
+  for (var s = 0; s < soon.length; s++) soon[s].hidden = !!LINKS[soon[s].getAttribute('data-store-soon')];
   var coachLinks = document.querySelectorAll('a[data-coach-web]');
   for (var k = 0; k < coachLinks.length; k++) {
     if (COACH_WEB_URL) {
