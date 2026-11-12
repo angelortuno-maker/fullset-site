@@ -11,9 +11,10 @@
     // can't join, but the button says it's a test (the Architect, #597 6718723294).
     android: 'https://play.google.com/apps/testing/com.fullset.app',
   };
-  // MSG-5951 W9: the coach web (app.thefullsetapp.com). Empty keeps "Coach login" and the /coaches dashboard button
-  // hidden; set it the day 327 is live in production.
-  var COACH_WEB_URL = '';
+  // MSG-5951 W9: the coach web. Empty keeps "Coach login" and the /coaches dashboard button hidden. Set to the coach
+  // web's production address once change 430's deploy is live (MSG-5977); app.thefullsetapp.com replaces it when its
+  // DNS is set.
+  var COACH_WEB_URL = 'https://fullset-coach.web.app';
   var buttons = document.querySelectorAll('a[data-store]');
   var anyShown = false;
   for (var i = 0; i < buttons.length; i++) {
