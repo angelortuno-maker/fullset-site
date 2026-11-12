@@ -11,7 +11,7 @@ import path from 'node:path';
 
 // The app checkout's harness (render.sh sets APP_DIR).
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const { addDays, expect, journeyDay, openTab, test } = require(path.join(process.env.APP_DIR!, 'qa/web/harness'));
+const { expect, journeyDay, openTab, test } = require(path.join(process.env.APP_DIR!, 'qa/web/harness'));
 
 const OUT = process.env.SHOTS_DIR!;
 const DAY = '2026-10-15'; // a Thursday
@@ -222,16 +222,15 @@ test('285 demo seed and frames', async ({ qa }: any) => {
   await qa.cleanup();
 });
 
-// The coach's side: a coach linked to Alex sets the goals and assigns Tuesday to Saturday of this week, then the
-// client page (Coach → Alex) at 390×844 @2x, light, in English and in Spanish. The coach's invite is checked against
-// the real date (MSG-5537), so the seed's day is the journeys' day, and the week is the one it falls in.
-const WEEK: [number, string][] = [[1, 'Push'], [2, 'Pull'], [3, 'Legs'], [4, 'Rest'], [5, 'Full body']];
+// The coach's side: a coach linked to Alex sets the goals and assigns the first five days of this week that show
+// "+ Assign", then the client page (Coach → Alex) at 390×844 @2x, light, in English and in Spanish. The coach's invite
+// is checked against the real date (MSG-5537), so the seed's day is the journeys' day, and the week is the one it falls
+// in. App master bc97b543 locks the week's past days (no "+ Assign"), so the days aren't a fixed Tuesday to Saturday.
+const WEEK: string[] = ['Push', 'Pull', 'Legs', 'Rest', 'Full body'];
 
 test('285 coach frame', async ({ qa }: any) => {
   fs.mkdirSync(OUT, { recursive: true });
   const day: string = journeyDay();
-  // The week's Monday (the journeys' day is never a Sunday).
-  const monday = addDays(day, 1 - new Date(`${day}T12:00:00Z`).getUTCDay());
   await qa.atCT(`${day} 09:00`);
   const coach = await qa.person('Coach Maya');
   const me = await qa.person('Alex');
@@ -253,8 +252,18 @@ test('285 coach frame', async ({ qa }: any) => {
     await c.getByRole('button', { name: 'Save goals', exact: true }).click();
     await expect(c.getByTestId('goal-sessions')).toHaveAttribute('aria-label', 'Sessions, 5 a week');
 
-    for (const [offset, type] of WEEK) {
-      const date = addDays(monday, offset);
+    // The shown week's rows, in order; the assignable ones show "+ Assign".
+    const rows = c.getByTestId('client-week').locator('[data-testid^="week-"]');
+    await expect(rows.first()).toBeVisible();
+    const open: string[] = [];
+    for (const row of await rows.all()) {
+      if ((await row.innerText()).includes('+ Assign')) open.push((await row.getAttribute('data-testid'))!.slice('week-'.length));
+    }
+    if (open.length < WEEK.length) {
+      throw new Error(`285 coach frame: needs ${WEEK.length} days with "+ Assign" this week, found ${open.length}: ${open.join(', ') || 'none'}`);
+    }
+    for (const [i, type] of WEEK.entries()) {
+      const date = open[i];
       await c.getByTestId(`week-${date}`).click();
       await c.getByRole('button', { name: type, exact: true }).click();
       await c.getByRole('button', { name: 'Assign to Alex', exact: true }).click();
