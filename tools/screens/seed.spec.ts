@@ -14,7 +14,7 @@ import path from 'node:path';
 const { expect, journeyDay, openTab, test } = require(path.join(process.env.APP_DIR!, 'qa/web/harness'));
 
 const OUT = process.env.SHOTS_DIR!;
-const DAY = '2026-10-15'; // a Thursday
+const DAY = '2026-11-12'; // a Thursday: the Coach shot's day (MSG-6042 item 3)
 // Breakfast, lunch and dinner (MSG-5824: three meals): [search, the food picked (its name starts so), grams].
 const MEALS: { at: string; foods: [string, string, number][] }[] = [
   { at: '07:45', foods: [['Oats', 'Oats, dry', 60], ['Banana', 'Banana', 120], ['Egg', 'Egg, scrambled', 150]] },
@@ -108,12 +108,12 @@ async function frame(p: any, name: string, kind: keyof typeof CONTENT) {
 
 // Two weeks of Push, Pull, Legs, the weights up a little each time; Legs last, so Thursday's planned day is Push.
 const WORKOUTS: { day: string; type: 'Push' | 'Pull' | 'Legs'; base: number }[] = [
-  { day: '2026-10-05', type: 'Push', base: 135 },
-  { day: '2026-10-06', type: 'Pull', base: 115 },
-  { day: '2026-10-07', type: 'Legs', base: 185 },
-  { day: '2026-10-09', type: 'Push', base: 140 },
-  { day: '2026-10-12', type: 'Pull', base: 120 },
-  { day: '2026-10-14', type: 'Legs', base: 195 },
+  { day: '2026-11-02', type: 'Push', base: 135 },
+  { day: '2026-11-03', type: 'Pull', base: 115 },
+  { day: '2026-11-04', type: 'Legs', base: 185 },
+  { day: '2026-11-06', type: 'Push', base: 140 },
+  { day: '2026-11-09', type: 'Pull', base: 120 },
+  { day: '2026-11-11', type: 'Legs', base: 195 },
 ];
 
 test('285 demo seed and frames', async ({ qa }: any) => {
@@ -200,6 +200,8 @@ test('285 demo seed and frames', async ({ qa }: any) => {
         await p.waitForTimeout(1500);
         await phoneBar(p);
         await p.waitForTimeout(300);
+        // MSG-6042 item 3: Today's "Restoring your workouts…" line is a loading state (W2), so wait until it's gone.
+        await expect(p.getByText(/^(Restoring your workouts…|Restaurando tus entrenamientos…)$/)).toHaveCount(0, { timeout: 60_000 });
         await frame(p, `frame-${lang}-${tab}`, tab);
       }
       await openTab(p, 'eat');
