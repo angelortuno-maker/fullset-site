@@ -11,9 +11,10 @@
     // can't join, but the button says it's a test (the Architect, #597 6718723294).
     android: 'https://play.google.com/apps/testing/com.fullset.app',
   };
-  // MSG-5951 W9: the coach web (app.thefullsetapp.com). Empty keeps "Coach login" and the /coaches dashboard button
-  // hidden; set it the day 327 is live in production.
-  var COACH_WEB_URL = '';
+  // MSG-5951 W9: the coach web. Empty keeps "Coach login" and the /coaches dashboard button hidden. Set to the coach
+  // web's production address once change 430's deploy is live (MSG-5977); app.thefullsetapp.com replaces it when its
+  // DNS is set.
+  var COACH_WEB_URL = 'https://fullset-coach.web.app';
   var buttons = document.querySelectorAll('a[data-store]');
   var anyShown = false;
   for (var i = 0; i < buttons.length; i++) {
@@ -31,6 +32,9 @@
   // Change 334 (MSG-5711): "Get the app" stands in for the store buttons until one of them has a link.
   var fallbacks = document.querySelectorAll('[data-store-fallback]');
   for (var j = 0; j < fallbacks.length; j++) fallbacks[j].hidden = anyShown;
+  // MSG-6042 item 4: "iPhone: coming soon" stands beside the Android test until the App Store link is set; then the badge shows instead.
+  var soon = document.querySelectorAll('[data-store-soon]');
+  for (var s = 0; s < soon.length; s++) soon[s].hidden = !!LINKS[soon[s].getAttribute('data-store-soon')];
   var coachLinks = document.querySelectorAll('a[data-coach-web]');
   for (var k = 0; k < coachLinks.length; k++) {
     if (COACH_WEB_URL) {

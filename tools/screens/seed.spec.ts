@@ -11,10 +11,10 @@ import path from 'node:path';
 
 // The app checkout's harness (render.sh sets APP_DIR).
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const { addDays, expect, journeyDay, openTab, test } = require(path.join(process.env.APP_DIR!, 'qa/web/harness'));
+const { expect, journeyDay, openTab, test } = require(path.join(process.env.APP_DIR!, 'qa/web/harness'));
 
 const OUT = process.env.SHOTS_DIR!;
-const DAY = '2026-10-15'; // a Thursday
+const DAY = '2026-11-12'; // a Thursday: the Coach shot's day (MSG-6042 item 3)
 // Breakfast, lunch and dinner (MSG-5824: three meals): [search, the food picked (its name starts so), grams].
 const MEALS: { at: string; foods: [string, string, number][] }[] = [
   { at: '07:45', foods: [['Oats', 'Oats, dry', 60], ['Banana', 'Banana', 120], ['Egg', 'Egg, scrambled', 150]] },
@@ -108,12 +108,12 @@ async function frame(p: any, name: string, kind: keyof typeof CONTENT) {
 
 // Two weeks of Push, Pull, Legs, the weights up a little each time; Legs last, so Thursday's planned day is Push.
 const WORKOUTS: { day: string; type: 'Push' | 'Pull' | 'Legs'; base: number }[] = [
-  { day: '2026-10-05', type: 'Push', base: 135 },
-  { day: '2026-10-06', type: 'Pull', base: 115 },
-  { day: '2026-10-07', type: 'Legs', base: 185 },
-  { day: '2026-10-09', type: 'Push', base: 140 },
-  { day: '2026-10-12', type: 'Pull', base: 120 },
-  { day: '2026-10-14', type: 'Legs', base: 195 },
+  { day: '2026-11-02', type: 'Push', base: 135 },
+  { day: '2026-11-03', type: 'Pull', base: 115 },
+  { day: '2026-11-04', type: 'Legs', base: 185 },
+  { day: '2026-11-06', type: 'Push', base: 140 },
+  { day: '2026-11-09', type: 'Pull', base: 120 },
+  { day: '2026-11-11', type: 'Legs', base: 195 },
 ];
 
 test('285 demo seed and frames', async ({ qa }: any) => {
@@ -200,6 +200,8 @@ test('285 demo seed and frames', async ({ qa }: any) => {
         await p.waitForTimeout(1500);
         await phoneBar(p);
         await p.waitForTimeout(300);
+        // MSG-6042 item 3: Today's "Restoring your workouts…" line is a loading state (W2), so wait until it's gone.
+        await expect(p.getByText(/^(Restoring your workouts…|Restaurando tus entrenamientos…)$/)).toHaveCount(0, { timeout: 60_000 });
         await frame(p, `frame-${lang}-${tab}`, tab);
       }
       await openTab(p, 'eat');
@@ -222,16 +224,15 @@ test('285 demo seed and frames', async ({ qa }: any) => {
   await qa.cleanup();
 });
 
-// The coach's side: a coach linked to Alex sets the goals and assigns Tuesday to Saturday of this week, then the
-// client page (Coach → Alex) at 390×844 @2x, light, in English and in Spanish. The coach's invite is checked against
-// the real date (MSG-5537), so the seed's day is the journeys' day, and the week is the one it falls in.
-const WEEK: [number, string][] = [[1, 'Push'], [2, 'Pull'], [3, 'Legs'], [4, 'Rest'], [5, 'Full body']];
+// The coach's side: a coach linked to Alex sets the goals and assigns the first five days of this week that show
+// "+ Assign", then the client page (Coach → Alex) at 390×844 @2x, light, in English and in Spanish. The coach's invite
+// is checked against the real date (MSG-5537), so the seed's day is the journeys' day, and the week is the one it falls
+// in. App master bc97b543 locks the week's past days (no "+ Assign"), so the days aren't a fixed Tuesday to Saturday.
+const WEEK: string[] = ['Push', 'Pull', 'Legs', 'Rest', 'Full body'];
 
 test('285 coach frame', async ({ qa }: any) => {
   fs.mkdirSync(OUT, { recursive: true });
   const day: string = journeyDay();
-  // The week's Monday (the journeys' day is never a Sunday).
-  const monday = addDays(day, 1 - new Date(`${day}T12:00:00Z`).getUTCDay());
   await qa.atCT(`${day} 09:00`);
   const coach = await qa.person('Coach Maya');
   const me = await qa.person('Alex');
@@ -253,8 +254,18 @@ test('285 coach frame', async ({ qa }: any) => {
     await c.getByRole('button', { name: 'Save goals', exact: true }).click();
     await expect(c.getByTestId('goal-sessions')).toHaveAttribute('aria-label', 'Sessions, 5 a week');
 
-    for (const [offset, type] of WEEK) {
-      const date = addDays(monday, offset);
+    // The shown week's rows, in order; the assignable ones show "+ Assign".
+    const rows = c.getByTestId('client-week').locator('[data-testid^="week-"]');
+    await expect(rows.first()).toBeVisible();
+    const open: string[] = [];
+    for (const row of await rows.all()) {
+      if ((await row.innerText()).includes('+ Assign')) open.push((await row.getAttribute('data-testid'))!.slice('week-'.length));
+    }
+    if (open.length < WEEK.length) {
+      throw new Error(`285 coach frame: needs ${WEEK.length} days with "+ Assign" this week, found ${open.length}: ${open.join(', ') || 'none'}`);
+    }
+    for (const [i, type] of WEEK.entries()) {
+      const date = open[i];
       await c.getByTestId(`week-${date}`).click();
       await c.getByRole('button', { name: type, exact: true }).click();
       await c.getByRole('button', { name: 'Assign to Alex', exact: true }).click();
