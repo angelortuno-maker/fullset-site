@@ -3,9 +3,9 @@
 // `data-store-fallback` ("Get the app") shows until one of the buttons has a link (334).
 (function () {
   var LINKS = {
-    // The App Store page (the official badge, MSG-5951 W3): the link Angel copies from the App Store app (the Architect,
-    // #597 6718723294; 2.0.0 is public). This one line shows the badge.
-    apple: '',
+    // The App Store page (the official badge, MSG-5951 W3): Fullset 2.0.2 was approved on the App Store on Nov 14 and its
+    // listing resolves publicly (MSG-6093; WL13). This one line shows the badge on every page.
+    apple: 'https://apps.apple.com/app/fullset-workout-meal-log/id6818055502',
     // "Join the Android test": the Play closed test's opt-in link (MSG-5951 W3, MSG-5952), until Play production, then
     // the Play Store listing and its badge (WL1). This replaces Oct 19's "never a test track's join link": a non-tester
     // can't join, but the button says it's a test (the Architect, #597 6718723294).
@@ -32,9 +32,6 @@
   // Change 334 (MSG-5711): "Get the app" stands in for the store buttons until one of them has a link.
   var fallbacks = document.querySelectorAll('[data-store-fallback]');
   for (var j = 0; j < fallbacks.length; j++) fallbacks[j].hidden = anyShown;
-  // MSG-6042 item 4: "iPhone: coming soon" stands beside the Android test until the App Store link is set; then the badge shows instead.
-  var soon = document.querySelectorAll('[data-store-soon]');
-  for (var s = 0; s < soon.length; s++) soon[s].hidden = !!LINKS[soon[s].getAttribute('data-store-soon')];
   var coachLinks = document.querySelectorAll('a[data-coach-web]');
   for (var k = 0; k < coachLinks.length; k++) {
     if (COACH_WEB_URL) {
