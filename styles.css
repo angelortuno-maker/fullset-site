@@ -85,6 +85,12 @@ p { margin: 0 0 16px; }
 .nav__links a:not(.pill):hover { text-decoration: underline; }
 .nav__end { display: flex; align-items: center; gap: 8px; }
 @media (min-width: 1024px) { .nav__links { display: flex; } .nav__end { display: none; } }
+/* WL7 (S2): under 1024 px the header row has no room for "Coach login" (16 px spare at 320 px in ES), so it gets a
+   slim row of its own, right-aligned under "Get the app". It shows once store-links.js gives it the coach web's link. */
+.nav__sub { display: flex; justify-content: flex-end; margin-top: -12px; padding-bottom: 4px; }
+.nav__sub a { font: 500 15px/1 var(--body); text-decoration: underline; padding: 14px 0; }
+.nav__sub:has(> a[hidden]) { display: none; }
+@media (min-width: 1024px) { .nav__sub { display: none; } }
 /* Change 285 R2: the language switch, named in the language it switches to; "ES" / "EN" under 400 px. No flags. */
 .lang__short { display: none; }
 /* Under 400 px the header holds the wordmark, the switch and "Consigue la app" on one row, each pill on one line. */
