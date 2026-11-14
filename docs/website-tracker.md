@@ -37,7 +37,7 @@ Same rules as the app's `docs/ops/release-tracker.md`: every ask gets a row the 
 | WL9 | S2: robots.txt + sitemap | Nov 12 | MSG-6042 |
 | WL10 | S2: real tester quotes, with permission | Nov 12 | MSG-6042 |
 | WL13 | S2: **App Store link live.** `store-links.js` `apple:` = https://apps.apple.com/app/fullset-workout-meal-log/id6818055502 (Fullset 2.0.2 approved Nov 14; the listing resolves publicly, the Lead's check). Apple's official badge shows on every page (EN, and ES with Apple's Spanish "Descárgalo en el App Store" artwork). "iPhone: coming soon" / "muy pronto" are removed. Then a preview channel for Angel → "site ok" → his one production deploy | Nov 14 | MSG-6093 item 2 |
-| WL14 | S2: press / creator kit page (logo, screenshots, short description, EN and ES) | Nov 14 | MSG-6094 item 3 |
+| WL14 | S2: press / creator kit page (logo, screenshots, short description, EN and ES): `/press` and `/es/press`, from the support page's layout. The one line and paragraph claim only what the public build does (launch-plan §7), with the facts (stores, price, 7-day trial, EN/ES), the brand set from angel-log `docs/design/logo` (the F mark as SVG in three versions, the horizontal and stacked logos, the 1024 app icon, in `img/press/`), and the four real screens per language, each downloadable. A "Press" / "Prensa" footer link on the home pages. Stacked on WL13 | Nov 14 | MSG-6094 item 3 |
 
 ## Deploy log
 - 2026-11-02: preview channel `site-2` deployed by Angel on `shots/5824-real-screens` (expires Nov 10 00:43Z). Angel's review Nov 3: "still not the latest version I asked for" (no coach login, no coach phone) → W1, W9.
