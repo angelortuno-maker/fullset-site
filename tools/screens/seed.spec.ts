@@ -228,6 +228,9 @@ test('285 demo seed and frames', async ({ qa }: any) => {
 // "+ Assign", then the client page (Coach → Alex) at 390×844 @2x, light, in English and in Spanish. The coach's invite
 // is checked against the real date (MSG-5537), so the seed's day is the journeys' day, and the week is the one it falls
 // in. App master bc97b543 locks the week's past days (no "+ Assign"), so the days aren't a fixed Tuesday to Saturday.
+// Since 461 D (the coach can't assign a past day) a run late in the week has fewer than five open days, and the callables
+// check dates against the real clock, so no seed can move the week. Then the frame is **skipped, not failed**: the run
+// ends green, the coach frame already in the site stays as it is, and the reason says when it can be re-shot.
 const WEEK: string[] = ['Push', 'Pull', 'Legs', 'Rest', 'Full body'];
 
 test('285 coach frame', async ({ qa }: any) => {
@@ -237,6 +240,7 @@ test('285 coach frame', async ({ qa }: any) => {
   const coach = await qa.person('Coach Maya');
   const me = await qa.person('Alex');
   const c = coach.page;
+  let short: string | null = null;
   try {
     await home(c);
     await home(me.page);
@@ -262,9 +266,11 @@ test('285 coach frame', async ({ qa }: any) => {
       if ((await row.innerText()).includes('+ Assign')) open.push((await row.getAttribute('data-testid'))!.slice('week-'.length));
     }
     if (open.length < WEEK.length) {
-      throw new Error(`285 coach frame: needs ${WEEK.length} days with "+ Assign" this week, found ${open.length}: ${open.join(', ') || 'none'}`);
+      short =
+        `285 coach frame skipped: it needs ${WEEK.length} days with "+ Assign" this week and found ${open.length} ` +
+        `(${open.join(', ') || 'none'}); 461 D locks past days. Re-shoot it on a Monday to Wednesday (CT). The site keeps its current coach frame.`;
     }
-    for (const [i, type] of WEEK.entries()) {
+    for (const [i, type] of (short ? [] : WEEK).entries()) {
       const date = open[i];
       await c.getByTestId(`week-${date}`).click();
       await c.getByRole('button', { name: type, exact: true }).click();
@@ -272,7 +278,7 @@ test('285 coach frame', async ({ qa }: any) => {
       await expect(c.getByTestId(`week-${date}`)).toHaveAttribute('aria-label', new RegExp(`, ${type}, assigned`));
     }
 
-    for (const lang of ['en', 'es'] as const) {
+    for (const lang of short ? [] : (['en', 'es'] as const)) {
       if (lang === 'es') {
         await home(c);
         await openTab(c, 'me');
@@ -293,4 +299,6 @@ test('285 coach frame', async ({ qa }: any) => {
     throw e;
   }
   await qa.cleanup();
+  if (short) console.log(short);
+  test.skip(short !== null, short ?? '');
 });
