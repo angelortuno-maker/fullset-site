@@ -1,0 +1,6 @@
+# thefullsetapp.com (WL9). Every page may be crawled except the account emails' action page (/auth/action, also noindex).
+User-agent: *
+Allow: /
+Disallow: /auth/
+
+Sitemap: https://thefullsetapp.com/sitemap.xml

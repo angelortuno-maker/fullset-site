@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- WL9: every public page, EN and ES, each with its language twin. tools/check-seo.mjs keeps it in step with the pages. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://thefullsetapp.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thefullsetapp.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thefullsetapp.com/es"/>
+  </url>
+  <url>
+    <loc>https://thefullsetapp.com/es</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thefullsetapp.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thefullsetapp.com/es"/>
+  </url>
+  <url>
+    <loc>https://thefullsetapp.com/coaches</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thefullsetapp.com/coaches"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thefullsetapp.com/es/coaches"/>
+  </url>
+  <url>
+    <loc>https://thefullsetapp.com/es/coaches</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thefullsetapp.com/coaches"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thefullsetapp.com/es/coaches"/>
+  </url>
+  <url>
+    <loc>https://thefullsetapp.com/press</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thefullsetapp.com/press"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thefullsetapp.com/es/press"/>
+  </url>
+  <url>
+    <loc>https://thefullsetapp.com/es/press</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thefullsetapp.com/press"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thefullsetapp.com/es/press"/>
+  </url>
+  <url>
+    <loc>https://thefullsetapp.com/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thefullsetapp.com/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thefullsetapp.com/es/privacy"/>
+  </url>
+  <url>
+    <loc>https://thefullsetapp.com/es/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thefullsetapp.com/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thefullsetapp.com/es/privacy"/>
+  </url>
+  <url>
+    <loc>https://thefullsetapp.com/support</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thefullsetapp.com/support"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thefullsetapp.com/es/support"/>
+  </url>
+  <url>
+    <loc>https://thefullsetapp.com/es/support</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thefullsetapp.com/support"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thefullsetapp.com/es/support"/>
+  </url>
+  <url>
+    <loc>https://thefullsetapp.com/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thefullsetapp.com/terms"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thefullsetapp.com/es/terms"/>
+  </url>
+  <url>
+    <loc>https://thefullsetapp.com/es/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thefullsetapp.com/terms"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thefullsetapp.com/es/terms"/>
+  </url>
+</urlset>
