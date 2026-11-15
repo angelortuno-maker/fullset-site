@@ -22,7 +22,8 @@ export function pageProblems(html, { file, badge }) {
     if (!badge.test(button)) problems.push(`${file}: the App Store button doesn't use its language's badge`);
     if (/apps\.apple\.com/.test(button)) problems.push(`${file}: the listing's link is typed in the page; it lives in store-links.js`);
   }
-  if (!/<script src="\/?(\.\.\/)?store-links\.js" defer><\/script>/.test(html)) problems.push(`${file}: doesn't load store-links.js`);
+  // W10: the script loads in <head>, not deferred (tools/check-store-links-head.mjs checks the placement on every page).
+  if (!/<script src="\/?(\.\.\/)?store-links\.js"><\/script>/.test(html)) problems.push(`${file}: doesn't load store-links.js`);
   return problems;
 }
 
@@ -36,7 +37,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const en = PAGES[0];
   const es = PAGES[1];
   const btn = (img, extra = 'data-hide-empty hidden') => `<a class="badge" data-store="apple" ${extra} href="#get"><img src="${img}"></a>`;
-  const script = '<script src="../store-links.js" defer></script>';
+  const script = '<script src="../store-links.js"></script>';
   const planted = [
     [pageProblems(script, en).length > 0, 'a page with no button passed'],
     [pageProblems(btn('../img/app-store-badge.svg', '') + script, en).length > 0, 'a button shown with no link passed'],
@@ -44,7 +45,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     [pageProblems(`<a class="badge" data-store="apple" data-hide-empty hidden href="https://apps.apple.com/app/x"><img src="../img/app-store-badge.svg"></a>${script}`, en).length > 0, 'a typed link passed'],
     [pageProblems(btn('../img/app-store-badge.svg'), en).length > 0, 'a page with no script passed'],
     [pageProblems(btn('../img/app-store-badge.svg') + script, en).length === 0, 'the shipped EN shape failed'],
-    [pageProblems(btn('/img/app-store-badge-es.svg') + '<script src="/store-links.js" defer></script>', es).length === 0, 'the shipped ES shape failed'],
+    [pageProblems(btn('/img/app-store-badge-es.svg') + '<script src="/store-links.js"></script>', es).length === 0, 'the shipped ES shape failed'],
   ];
   for (const [ok, why] of planted) if (!ok) fail(`the check's own planted case went wrong: ${why}`);
   const root = resolve(process.argv[2] ?? '.');
