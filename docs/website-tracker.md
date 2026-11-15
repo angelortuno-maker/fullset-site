@@ -28,7 +28,7 @@ Same rules as the app's `docs/ops/release-tracker.md`: every ask gets a row the 
 | # | Item | Asked | Notes |
 |---|---|---|---|
 | WL1 | Google Play badge replaces "Join the Android test" the day Play production opens | — | MSG-5711 |
-| WL2 | Store-link swap and preview-channel steps written as a one-page runbook for Angel | Nov 7 | Architect |
+| WL2 | Store-link swap and preview-channel steps written as a one-page runbook for Angel: **`docs/runbook-store-links.md`** (the site-N preview block's shape and checks, each `store-links.js` swap with what it also needs, undo); the production deploy stays the app repo's `docs/ops/website-deploy.md` | Nov 7 | Architect |
 | WL3 | Pricing page (when Pro pricing is final) | — | spec says "no pricing page" for now |
 | WL5 | Laptop-frame coach-web shot for the "For coaches" bands (a design change to those bands) | Nov 10 | MSG-6002 C: not in S1; its own row and Angel's look after the one deploy |
 | WL6 | S2: free-for-coaches headline on /coaches (after the Architect confirms pricing) | Nov 12 | MSG-6042 |
