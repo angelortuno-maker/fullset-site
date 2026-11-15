@@ -122,6 +122,12 @@ p { margin: 0 0 16px; }
   .shots .shot { width: min(210px, calc((100% + 112px) / 3 - 16px)); }
   .shots .shot + .shot { margin-left: -56px; }
 }
+/* S2-3 (MSG-6042): bigger phone shots under 640 px. The three frames keep W1's fan (all three, the Coach frame on top,
+   MSG-5951) but overlap more (64 px), so each is about 22% wider: 150 px at 375 instead of 123, inside the gutters. */
+@media (max-width: 639px) {
+  .shots--big .shot { width: min(200px, calc((100% + 128px) / 3 - 4px)); }
+  .shots--big .shot + .shot { margin-left: -64px; }
+}
 
 /* Bands and cards */
 .on-ink { background: var(--ink); color: var(--on-dark); }
